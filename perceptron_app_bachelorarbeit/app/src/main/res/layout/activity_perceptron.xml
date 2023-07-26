@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarPoint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/standard"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPerceptron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Perceptron"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolBarPoint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toolBarPoint"
+        app:layout_constraintTop_toTopOf="@+id/toolBarPoint"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/buttonPerceptronBackToMain"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/standard_button"
+        android:padding="10dp"
+        android:text="Back to Main"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imagePerceptron"
+        app:layout_constraintStart_toStartOf="@+id/imagePerceptron"
+        app:layout_constraintTop_toBottomOf="@+id/imagePerceptron"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/imagePerceptron"
+        android:layout_width="360dp"
+        android:layout_height="537dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarPoint"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        android:contentDescription="TODO"
+        tools:ignore="ContentDescription,HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
