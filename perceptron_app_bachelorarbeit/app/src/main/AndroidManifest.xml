@@ -30,6 +30,11 @@
             android:exported="true"
             />
 
+        <activity
+            android:name=".activities.TotalPoint"
+            android:exported="true"
+            />
+
     </application>
 
 </manifest>

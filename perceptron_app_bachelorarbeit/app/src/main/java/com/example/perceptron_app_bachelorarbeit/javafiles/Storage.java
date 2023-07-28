@@ -172,15 +172,14 @@ public class Storage {
         int counterForBreakline = 0;
 
         for(String elementInValues : values.values()){
-            if(counterForBreakline%2 != 0 && counterForBreakline != 0){
+            if(counterForBreakline%2 != 0 && counterForBreakline != 0 && counterForBreakline != values.size()-1){
                 convertedReturn += elementInValues + "\n";
 
             } else {
-                convertedReturn += " " + elementInValues + ": ";
+                convertedReturn += " " + elementInValues + " ";
             }
             counterForBreakline++;
         }
-        convertedReturn += "\n";
 
         return convertedReturn;
     }
