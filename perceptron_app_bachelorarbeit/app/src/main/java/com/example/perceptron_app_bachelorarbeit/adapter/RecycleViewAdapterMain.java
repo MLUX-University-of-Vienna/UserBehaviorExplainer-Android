@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.activities.MainActivity;
-import com.example.perceptron_app_bachelorarbeit.activities.PointActivity;
+import com.example.perceptron_app_bachelorarbeit.activities.NodeActivity;
 
 import java.util.HashMap;
-import java.util.List;
+
+/**
+ * Recycle View Adapter is used to display Textviews of the Nodes on the Mainpage
+ */
 
 public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdapterMain.ViewHolder> {
 
@@ -37,17 +40,15 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
 
     @Override
     public void onBindViewHolder(@NonNull RecycleViewAdapterMain.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        System.out.println(dataFromMain);
-        System.out.println(position);
         Integer keyValue = (Integer) dataFromMain.keySet().toArray()[position];
         String displayItem = dataFromMain.get(keyValue);
-        holder.display.setText(displayItem);
+        holder.displayTextView.setText(displayItem);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View displayView) {
                 MainActivity.storageForData.setRunningNode(dataFromMain.get(position));
-                Intent goToPoint = new Intent(mainContext, PointActivity.class);
+                Intent goToPoint = new Intent(mainContext, NodeActivity.class);
                 mainContext.startActivity(goToPoint);
             }
         });
@@ -59,11 +60,11 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView display;
+        TextView displayTextView;
 
         public ViewHolder(@NonNull View displayView) {
             super(displayView);
-            display = displayView.findViewById(R.id.TextViewListMain);
+            displayTextView = displayView.findViewById(R.id.TextViewListMain);
         }
     }
 }

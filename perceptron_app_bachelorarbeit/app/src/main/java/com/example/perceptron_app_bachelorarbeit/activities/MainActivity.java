@@ -11,9 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterMain;
-import com.example.perceptron_app_bachelorarbeit.javafiles.DisplayNode;
 import com.example.perceptron_app_bachelorarbeit.javafiles.Event;
-import com.example.perceptron_app_bachelorarbeit.javafiles.PerceptronData;
 import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.javafiles.Storage;
 
@@ -24,26 +22,28 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Mainactivity for the whole System
+ */
 
-    //Button to get input of CSV
-    private Button inputCSV;
-    private Button view_perceptron;
+public class MainActivity extends AppCompatActivity {
+    private static final int REQUESTCODE = 1;
     private HashMap<Integer, HashMap<Integer,String>> csvData = new HashMap<>();
     public static final Storage storageForData = new Storage();
-    private RecyclerView recyclerView;
-    private HashMap<Integer, Event> eventData = new HashMap<>();
+    private RecyclerView recyclerViewMainActivity;
+    private HashMap<Integer, Event> eventDataFromCSV = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        inputCSV = findViewById(R.id.import_csv_main);
-        inputCSV.setOnClickListener(view -> startCSVImport());
-        view_perceptron = findViewById(R.id.view_perceptron);
-        view_perceptron.setOnClickListener(view -> loadPerceptron());
+        //Button to get input of CSV
+        Button inputCSV = findViewById(R.id.import_csv_main);
+        inputCSV.setOnClickListener(view -> filePicker());
+        Button viewPerceptron = findViewById(R.id.view_perceptron);
+        viewPerceptron.setOnClickListener(view -> loadPerceptron());
         TextView startingPage = findViewById(R.id.mainPageInformation);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerViewMainActivity = findViewById(R.id.recyclerView);
 
         if(csvData.size() >= 1){
             startingPage.setText("CSV Selected");
@@ -53,76 +53,104 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * loadPerceptron should open the PerceptronActivity for Display of the Perceptron
+     */
+
     private void loadPerceptron() {
         Intent intent = new Intent(this, PerceptronActivity.class);
         startActivity(intent);
     }
 
-    //Class for CSV Import from files
-    private void startCSVImport() {
-        try {
-            InputStream csvIn = getResources().openRawResource(R.raw.df_perceptron);
-            BufferedReader readerCsvIn = new BufferedReader(
-                    new InputStreamReader(csvIn, StandardCharsets.UTF_8)
-            );
+    private void filePicker() {
+        Intent csvImport = new Intent(Intent.ACTION_GET_CONTENT);
+        csvImport.setType("*/*"); // Set the MIME type to all files
+        startActivityForResult(csvImport, REQUESTCODE);
+    }
 
-            String readAbleString;
-            Integer index = 0;
+    /**
+     * Class for CSV Import from files
+     */
+    @Override
+    protected void onActivityResult(int requestCodeForCSVData, int resultCodeForCsvData, Intent dataForCSVRequest) {
+        super.onActivityResult(requestCodeForCSVData, resultCodeForCsvData, dataForCSVRequest);
 
-            while ((readAbleString = readerCsvIn.readLine()) != null) {
-                String[] fields = readAbleString.split(",");
-                HashMap<Integer, String> insert = new HashMap<>();
-                for(int counterFields = 0; counterFields < fields.length; counterFields++){
-                    insert.put(counterFields,fields[counterFields]);
+        if (requestCodeForCSVData == REQUESTCODE && resultCodeForCsvData == RESULT_OK) {
+            if (dataForCSVRequest.getData() != null && dataForCSVRequest != null) {
+                Uri uriOfCSVFile = dataForCSVRequest.getData();
+                try {
+                    InputStream csvIn = super.getContentResolver().openInputStream(uriOfCSVFile);
+                    BufferedReader readerCsvIn = new BufferedReader(
+                            new InputStreamReader(csvIn, StandardCharsets.UTF_8)
+                    );
+
+                    String stringValueOfCSV;
+                    Integer indexForHashMapCSVData = 0;
+
+                    while ((stringValueOfCSV = readerCsvIn.readLine()) != null) {
+                        String[] fieldsOfCSVRow = stringValueOfCSV.split(",");
+                        HashMap<Integer, String> insert = new HashMap<>();
+                        for (int counterFields = 0; counterFields < fieldsOfCSVRow.length; counterFields++) {
+                            insert.put(counterFields, fieldsOfCSVRow[counterFields]);
+                        }
+
+                        csvData.put(indexForHashMapCSVData, insert);
+                        indexForHashMapCSVData++;
+                    }
+
+                    csvIn.close();
+                    readerCsvIn.close();
+                } catch (IOException streamError) {
+                    streamError.printStackTrace();
                 }
 
-                csvData.put(index, insert);
-                index++;
+                /**
+                 * Gets the definitions of Events for the Activity to translate later
+                 */
+
+                try {
+                    InputStream csvIn = getResources().openRawResource(R.raw.mapping);
+                    BufferedReader readerCsvIn = new BufferedReader(
+                            new InputStreamReader(csvIn, StandardCharsets.UTF_8)
+                    );
+
+                    String stringValueOfCSV;
+                    Integer indexForHashMapEvent = 0;
+
+                    while ((stringValueOfCSV = readerCsvIn.readLine()) != null) {
+                        String[] fieldsOfCSVRow = stringValueOfCSV.split(";");
+
+                        Event insert = new Event(fieldsOfCSVRow[0], fieldsOfCSVRow[1]);
+                        eventDataFromCSV.put(indexForHashMapEvent, insert);
+                        indexForHashMapEvent++;
+                    }
+                    csvIn.close();
+                    readerCsvIn.close();
+                } catch (IOException streamError) {
+                    streamError.printStackTrace();
+                }
+
+                storageForData.setCsvData(csvData);
+                storageForData.setEvents(eventDataFromCSV);
+
+                TextView startingPage = findViewById(R.id.mainPageInformation);
+                startingPage.setText("CSV Selected");
+
+                storageForData.setNames();
+                storageForData.setEventsAndValues();
+                HashMap<Integer, String> firstRow = storageForData.getNames();
+                Recycle();
             }
-
-            csvIn.close();
-            readerCsvIn.close();
-        } catch (IOException streamError) {
-            streamError.printStackTrace();
         }
-
-        try {
-            InputStream csvIn = getResources().openRawResource(R.raw.mapping);
-            BufferedReader readerCsvIn = new BufferedReader(
-                    new InputStreamReader(csvIn, StandardCharsets.UTF_8)
-            );
-
-            String readAbleString;
-            Integer index = 0;
-
-            while ((readAbleString = readerCsvIn.readLine()) != null) {
-                String[] fields = readAbleString.split(";");
-
-                Event insert = new Event(fields[0],fields[1]);
-                eventData.put(index,insert);
-                index++;
-            }
-            csvIn.close();
-            readerCsvIn.close();
-        } catch (IOException streamError) {
-            streamError.printStackTrace();
-        }
-
-        storageForData.setCsvData(csvData);
-        storageForData.setEvents(eventData);
-
-        TextView startingPage = findViewById(R.id.mainPageInformation);
-        startingPage.setText("CSV Selected");
-
-        storageForData.setNames();
-        storageForData.setEventsAndValues();
-        HashMap<Integer, String> firstRow = storageForData.getNames();
-        Recycle();
     }
+
+    /**
+     * Recycler View for the MainActivity after CSV import and show the different Nodes
+     */
 
     private void Recycle() {
         RecycleViewAdapterMain adapterForRecycle = new RecycleViewAdapterMain(this, storageForData.getNames());
-        recyclerView.setAdapter(adapterForRecycle);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewMainActivity.setAdapter(adapterForRecycle);
+        recyclerViewMainActivity.setLayoutManager(new LinearLayoutManager(this));
     }
 }

@@ -10,36 +10,36 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perceptron_app_bachelorarbeit.R;
-import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterPoint;
+import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterNode;
 import com.example.perceptron_app_bachelorarbeit.javafiles.DisplayNode;
 import com.example.perceptron_app_bachelorarbeit.javafiles.Node;
 
 import java.util.HashMap;
 
-public class PointActivity extends AppCompatActivity {
+/**
+ * Node Activity is used to display a Node which was selected in Main and give it context
+ */
+
+public class NodeActivity extends AppCompatActivity {
 
     private DisplayNode runningNode;
     private DisplayNode previousNode;
     private DisplayNode nextNode;
-    private TextView textViewPoint;
-    private Button next;
-    private Button previous;
-    private Button goToTotal;
     private RecyclerView recyclerHighestPoint;
     private RecyclerView recyclerLowestPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_point);
-        textViewPoint = findViewById(R.id.textViewPointTotal);
+        setContentView(R.layout.activity_node);
+        TextView textViewPoint = findViewById(R.id.textViewPointTotal);
         runningNode = MainActivity.storageForData.getRunningNode();
         System.out.println(runningNode.getNodeName());
         previousNode = MainActivity.storageForData.getPreviousNode(runningNode.getNodeName());
         nextNode = MainActivity.storageForData.getNextNode(runningNode.getNodeName());
         textViewPoint.setText("Node - " + runningNode.getNodeName());
-        next = findViewById(R.id.buttonRightPoint);
-        previous = findViewById(R.id.buttonLeftPoint);
+        Button next = findViewById(R.id.buttonRightPoint);
+        Button previous = findViewById(R.id.buttonLeftPoint);
         next.setText(nextNode.getNodeName());
         previous.setText(previousNode.getNodeName());
 
@@ -47,64 +47,83 @@ public class PointActivity extends AppCompatActivity {
         previous.setOnClickListener(view -> loadPrevious());
         recyclerHighestPoint = findViewById(R.id.recyclerHighestPoint);
         recyclerLowestPoint = findViewById(R.id.recyclerTotal);
-        goToTotal = findViewById(R.id.showTotalPoint);
+        Button goToTotal = findViewById(R.id.showTotalPoint);
         goToTotal.setOnClickListener(view -> goToTotal());
         fillNode();
 
     }
 
+    /**
+     * goToToal opens the TotalNode Activity for a Node
+     */
+
     private void goToTotal(){
-        Intent intent = new Intent(this, TotalPoint.class);
+        Intent intent = new Intent(this, TotalNode.class);
         startActivity(intent);
     }
+
+    /**
+     * loadNext opens the next Node from the List
+     */
 
     private void loadNext(){
         MainActivity.storageForData.setRunningNode(nextNode.getNodeName());
-        Intent intent = new Intent(this, PointActivity.class);
+        Intent intent = new Intent(this, NodeActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * loadPrevious opens the previous Node from the List
+     */
 
     private void loadPrevious(){
         MainActivity.storageForData.setRunningNode(previousNode.getNodeName());
-        Intent intent = new Intent(this, PointActivity.class);
+        Intent intent = new Intent(this, NodeActivity.class);
         startActivity(intent);
     }
 
+
+    /**
+     * fillNode opens the functions to fill the Recycler Views for the Node
+     */
 
     private void fillNode() {
         fillTop();
         fillBottom();
     }
 
+    /**
+     * Fill Top fills the recycler View for the Top elements of the Node
+     */
+
     private void fillTop() {
         HashMap<Integer, String> topValue = new HashMap<>();
-        int counter = 0;
-        for(int index = 4; index >= 0; index--){
-            Node insert = runningNode.getBestNodes().get(index);
-            String value =  "Perceptron Value: " + insert.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insert.getEvent());
-            topValue.put(counter, value);
-            counter++;
+        int counterForInsertValue = 0;
+        for(int indexForTopValues = 4; indexForTopValues >= 0; indexForTopValues--){
+            Node insertNode = runningNode.getBestNodes().get(indexForTopValues);
+            String value =  "Perceptron Value: " + insertNode.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+            topValue.put(counterForInsertValue, value);
+            counterForInsertValue++;
         }
 
-        System.out.println(topValue);
-
-
-
-        RecycleViewAdapterPoint adapterForRecycle = new RecycleViewAdapterPoint(this, topValue);
+        RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, topValue);
         recyclerHighestPoint.setAdapter(adapterForRecycle);
         recyclerHighestPoint.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * Fill Bottom fills the recycler View for the bottom elements of the Node
+     */
+
     private void fillBottom() {
         HashMap<Integer, String> bottomValue = new HashMap<>();
-        for(int index = 5; index < 10; index++){
-            Node insert = runningNode.getBestNodes().get(index);
-            String value = "Perceptron Value: " + insert.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insert.getEvent());
-            bottomValue.put(index, value);
+        for(int indexForBottomValues = 5; indexForBottomValues < 10; indexForBottomValues++){
+            Node insertNode = runningNode.getBestNodes().get(indexForBottomValues);
+            String value = "Perceptron Value: " + insertNode.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+            bottomValue.put(indexForBottomValues, value);
         }
-        System.out.println(bottomValue);
 
-        RecycleViewAdapterPoint adapterForRecycle = new RecycleViewAdapterPoint(this, bottomValue);
+        RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, bottomValue);
         recyclerLowestPoint.setAdapter(adapterForRecycle);
         recyclerLowestPoint.setLayoutManager(new LinearLayoutManager(this));
     }

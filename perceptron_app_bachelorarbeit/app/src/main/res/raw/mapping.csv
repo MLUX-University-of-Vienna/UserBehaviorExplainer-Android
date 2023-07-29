@@ -1,19 +1,19 @@
-﻿t_n$;current temperature
-p_n$;current precipitation
-tq_n$;current time quarter
-e_n-1$;previous event activity
-t_n-1$;previous temperature
-p_n-1$;previous precipitation
-tq_n-1$;previous time quarter
-e_n-2$;before previous event activity
-t_n-2$;before previous temperature
-p_n-2$;before previous precipitation
-tq_n-2$;before previous time quarter
-e_n+1$;next activity
-t_n+1$;next temperature
-p_n+1$;next precipitation
-tq_n+1$;next time quarter
-e_n+2$;next next activity
-t_n+2$;next next temperature
-p_n+2$;next next precipitation
-tq_n+2$;next next time quarter
+﻿t_n$;current temperature :
+p_n$;current precipitation :
+tq_n$;current time quarter :
+e_n-1$;previous event activity :
+t_n-1$;previous temperature :
+p_n-1$;previous precipitation :
+tq_n-1$;previous time quarter :
+e_n-2$;before previous event activity :
+t_n-2$;before previous temperature :
+p_n-2$;before previous precipitation :
+tq_n-2$;before previous time quarter :
+e_n+1$;next activity :
+t_n+1$;next temperature :
+p_n+1$;next precipitation :
+tq_n+1$;next time quarter :
+e_n+2$;next next activity :
+t_n+2$;next next temperature :
+p_n+2$;next next precipitation :
+tq_n+2$;next next time quarter :
