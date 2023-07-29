@@ -13,23 +13,13 @@ public class Node {
         this.event = event;
     }
 
-    public Node() {
-
-    }
-
     public String getValue() {
         return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public String getEvent() {
         return event;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
-    }
+
 }

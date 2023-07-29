@@ -29,10 +29,6 @@ public class DisplayNode {
         return nodeName;
     }
 
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName;
-    }
-
     public HashMap<Integer, Node> getNodesComplete() {
         return nodesComplete;
     }
@@ -45,7 +41,4 @@ public class DisplayNode {
         return bestNodes;
     }
 
-    public void setBestNodes(HashMap<Integer, Node> bestNodes) {
-        this.bestNodes = bestNodes;
-    }
 }

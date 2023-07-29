@@ -141,7 +141,6 @@ public class Storage {
 
     /**
      * Here the Event gets converted to a readable String which can be displayed
-     *
      * @param convert is the Node which should be converted
      * @return gives back a readable String for the Activity to present
      */
@@ -184,6 +183,11 @@ public class Storage {
         return convertedReturn;
     }
 
+    /**
+     * Function translate gets an identifier and translates it to the real Name from the CSV given
+     * @param identifier is the Value which should be given from the System to translate
+     * @return the String with the real name of the element
+     */
     private String translate(String identifier){
         String translated = "";
 
@@ -204,7 +208,6 @@ public class Storage {
 
     /**
      * getNode returns the Node which got selected and gives back the Information
-     *
      * @param nodeName nodeName is the Node selected from the RecycleView to be displayed
      * @return gives back the Node according to the name
      */
@@ -223,7 +226,6 @@ public class Storage {
 
     /**
      * getNextNode gives back the Node for the next page and the Information to it
-     *
      * @param currentNode is the value where the node is currently at
      * @return a DisplayNode which is selected - If the List is at the End the first element should be returned else the next element
      */
@@ -247,7 +249,6 @@ public class Storage {
 
     /**
      * getNextNode gives back the Node for the previous page and the Information to it
-     *
      * @param currentNode is the value where the node is currently at
      * @return a DisplayNode which is selected - If the List is at the Start the last element should be returned else the previous element
      */
@@ -271,19 +272,6 @@ public class Storage {
     /**
      * Getters and Setters of the Class
      */
-
-    public HashMap<Integer, Event> getEvents() {
-        return events;
-    }
-
-    public HashMap<Integer, DisplayNode> getDisplayNodeMap() {
-        return displayNodeMap;
-    }
-
-    public HashMap<Integer, HashMap<Integer, String>> getCsvData() {
-        return csvData;
-    }
-
     public void setCsvData(HashMap<Integer, HashMap<Integer, String>> csvData) {
         this.csvData = csvData;
     }

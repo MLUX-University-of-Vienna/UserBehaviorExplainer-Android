@@ -26,12 +26,17 @@
             android:exported="true"
             />
         <activity
-            android:name=".activities.PointActivity"
+            android:name=".activities.NodeActivity"
             android:exported="true"
             />
 
         <activity
-            android:name=".activities.TotalPoint"
+            android:name=".activities.TotalNode"
+            android:exported="true"
+            />
+
+        <activity
+            android:name=".activities.CSVPicker"
             android:exported="true"
             />
 
