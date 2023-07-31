@@ -74,6 +74,10 @@ public class TotalNode extends AppCompatActivity {
         totalPointRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * Fills Recycler for Weather data
+     */
+
     private void fillRecyclerTotalWeather(){
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
         for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
@@ -91,6 +95,10 @@ public class TotalNode extends AppCompatActivity {
         totalPointRecycler.setAdapter(adapterForRecycle);
         totalPointRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    /**
+     * Fills Recycler for Precipation
+     */
 
     private void fillRecyclerTotalRain(){
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
@@ -110,6 +118,10 @@ public class TotalNode extends AppCompatActivity {
         totalPointRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
+
+    /**
+     * Fills Recycler with all Values
+     */
 
     private void fillRecyclerTotal(){
         HashMap<Integer, String> valuesOfNode = new HashMap<>();

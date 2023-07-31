@@ -8,7 +8,14 @@ import java.util.HashMap;
 
 public class DisplayNode {
     String nodeName;
+    /**
+     * Holds all eventnodes from a node
+     */
     HashMap<Integer, Node> nodesComplete = new HashMap<>();
+
+    /**
+     * Holds all best and worst eventnodes
+     */
     HashMap<Integer, Node> bestNodes = new HashMap<>();
 
     public DisplayNode(String nodeName, HashMap<Integer, Node> nodesComplete, HashMap<Integer, Node> bestNodes) {

@@ -77,9 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCodeForCSVData == REQUESTCODE && resultCodeForCsvData == RESULT_OK) {
             if (dataForCSVRequest.getData() != null && dataForCSVRequest != null) {
-                Uri uriOfCSVFile = dataForCSVRequest.getData();
                 try {
-                    InputStream csvIn = super.getContentResolver().openInputStream(uriOfCSVFile);
+                    InputStream csvIn = super.getContentResolver().openInputStream(dataForCSVRequest.getData());
                     BufferedReader readerCsvIn = new BufferedReader(
                             new InputStreamReader(csvIn, StandardCharsets.UTF_8)
                     );

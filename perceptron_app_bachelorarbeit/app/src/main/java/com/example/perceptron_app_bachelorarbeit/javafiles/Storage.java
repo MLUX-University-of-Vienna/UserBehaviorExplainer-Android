@@ -217,6 +217,12 @@ public class Storage {
         return translated;
     }
 
+    /**
+     * Changes the value of a quarter of the day
+     * @param value is the quarter from the value
+     * @return the changed value for the quarter
+     */
+
     private String changeValueForQuarter(String value){
         switch(value) {
             case "q1":
@@ -232,12 +238,24 @@ public class Storage {
         }
     }
 
+    /**
+     * Changes temperature if its a false field like -91.0
+     * @param value value from the list which needs to be translated
+     * @return the changed value if its faulty
+     */
+
     private String changeForTemperature(String value) {
         return value.length() <= 6 ?
                 "?"
                 :
                 value;
     }
+
+    /**
+     * Changes the precipation from 0.0 and 1.0 to sunny and rainy
+     * @param value is from the list which needs to be translated
+     * @return gives back rainy or sunny or ? for undefined values
+     */
 
     private String changeForPrecip(String value){
         switch(value){
