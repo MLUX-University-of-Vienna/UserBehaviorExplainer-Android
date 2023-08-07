@@ -27,21 +27,22 @@ public class RecycleViewAdapterNode extends RecyclerView.Adapter<RecycleViewAdap
         this.nodeContext = nodeContext;
     }
 
+
     @NonNull
     @Override
-    public RecycleViewAdapterNode.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View displayView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout_point, parent, false);
+    public RecycleViewAdapterNode.ViewHolder onCreateViewHolder(@NonNull ViewGroup parentView, int viewTypeParent) {
+        View displayView = LayoutInflater.from(parentView
+            .getContext()).inflate(R.layout.list_item_layout_point, parentView
+            , false);
         return new RecycleViewAdapterNode.ViewHolder(displayView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        System.out.println(dataFromNode);
-        System.out.println(position);
-        Integer keyValue = (Integer) dataFromNode.keySet().toArray()[position];
-        String displayItem = dataFromNode.get(keyValue);
-        holder.displayTextView.setText(displayItem);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull ViewHolder csvElementHolder, int positionOfCSVElement) {
+        Integer keyValueOfItem = (Integer) dataFromNode.keySet().toArray()[positionOfCSVElement];
+        String displayItem = dataFromNode.get(keyValueOfItem);
+        csvElementHolder.displayTextView.setText(displayItem);
+        csvElementHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View displayView) {
                 System.out.println("Clicked but not needed");

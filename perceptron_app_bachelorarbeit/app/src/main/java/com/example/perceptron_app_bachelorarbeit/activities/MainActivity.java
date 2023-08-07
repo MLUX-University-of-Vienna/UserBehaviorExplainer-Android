@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCodeForCSVData, resultCodeForCsvData, dataForCSVRequest);
 
         if (requestCodeForCSVData == REQUESTCODE && resultCodeForCsvData == RESULT_OK) {
-            if (dataForCSVRequest.getData() != null && dataForCSVRequest != null) {
+            if (dataForCSVRequest.getData() != null) {
                 try {
                     InputStream csvIn = super.getContentResolver().openInputStream(dataForCSVRequest.getData());
                     BufferedReader readerCsvIn = new BufferedReader(

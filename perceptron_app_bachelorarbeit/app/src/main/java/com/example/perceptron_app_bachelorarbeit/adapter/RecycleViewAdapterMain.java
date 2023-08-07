@@ -33,23 +33,23 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View displayView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parentView, int viewTypeParent) {
+        View displayView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.list_item_layout, parentView, false);
         return new ViewHolder(displayView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecycleViewAdapterMain.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Integer keyValue = (Integer) dataFromMain.keySet().toArray()[position];
-        String displayItem = dataFromMain.get(keyValue);
-        holder.displayTextView.setText(displayItem);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull RecycleViewAdapterMain.ViewHolder csvHolder, @SuppressLint("RecyclerView") int positionOfElement) {
+        Integer keyValueOfElement = (Integer) dataFromMain.keySet().toArray()[positionOfElement];
+        String displayItem = dataFromMain.get(keyValueOfElement);
+        csvHolder.displayTextView.setText(displayItem);
+        csvHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View displayView) {
-                MainActivity.storageForData.setRunningNode(dataFromMain.get(position));
-                Intent goToPoint = new Intent(mainContext, NodeActivity.class);
-                mainContext.startActivity(goToPoint);
+                MainActivity.storageForData.setRunningNode(dataFromMain.get(positionOfElement));
+                Intent goToNode = new Intent(mainContext, NodeActivity.class);
+                mainContext.startActivity(goToNode);
             }
         });
     }
