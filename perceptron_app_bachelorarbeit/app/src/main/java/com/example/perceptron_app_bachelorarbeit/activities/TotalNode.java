@@ -62,7 +62,14 @@ public class TotalNode extends AppCompatActivity {
             Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
 
             if(insertNode.getEvent().contains("t_n")){
-                String value = "Perceptron Value: " + insertNode.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                String valueOfNode = "";
+                if(insertNode.getValue().length() <=4) {
+                    valueOfNode = insertNode.getValue();
+                } else {
+                    valueOfNode = insertNode.getValue().substring(0,3);
+                }
+
+                String value = "PV: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                 valuesOfNode.put(indexOfNodes, value);
             } else {
                 continue;
@@ -84,7 +91,14 @@ public class TotalNode extends AppCompatActivity {
             Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
 
             if(insertNode.getEvent().contains("p_n")){
-                String value = "Perceptron Value: " + insertNode.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                String valueOfNode = "";
+                if(insertNode.getValue().length() <=4) {
+                    valueOfNode = insertNode.getValue();
+                } else {
+                    valueOfNode = insertNode.getValue().substring(0,3);
+                }
+
+                String value = "PV: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                 valuesOfNode.put(indexOfNodes, value);
             } else {
                 continue;
@@ -106,7 +120,14 @@ public class TotalNode extends AppCompatActivity {
             Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
 
             if(insertNode.getEvent().contains("tq_n")){
-                String value = "Perceptron Value: " + insertNode.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+
+                String valueOfNode = "";
+                if(insertNode.getValue().length() <=4) {
+                    valueOfNode = insertNode.getValue();
+                } else {
+                    valueOfNode = insertNode.getValue().substring(0,3);
+                }
+                String value = "PV: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                 valuesOfNode.put(indexOfNodes, value);
             } else {
                 continue;
@@ -127,7 +148,14 @@ public class TotalNode extends AppCompatActivity {
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
         for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
             Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
-            String value = "Perceptron Value: " + insertNode.getValue() + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+            String valueOfNode = "";
+            if(insertNode.getValue().length() <=4) {
+                valueOfNode = insertNode.getValue();
+            } else {
+                valueOfNode = insertNode.getValue().substring(0,3);
+            }
+
+            String value = "PV: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
             valuesOfNode.put(indexOfNodes, value);
         }
 
