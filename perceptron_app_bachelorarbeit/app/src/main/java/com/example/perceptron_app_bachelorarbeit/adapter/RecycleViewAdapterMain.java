@@ -3,6 +3,7 @@ package com.example.perceptron_app_bachelorarbeit.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,14 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
         Integer keyValueOfElement = (Integer) dataFromMain.keySet().toArray()[positionOfElement];
         String displayItem = dataFromMain.get(keyValueOfElement);
         csvHolder.displayTextView.setText(displayItem);
+
+        if(positionOfElement %2 == 0){
+            csvHolder.displayTextView.setBackgroundColor(Color.parseColor("#0864A4"));
+        } else {
+            csvHolder.displayTextView.setBackgroundColor(Color.parseColor("#d3d3d3"));
+            csvHolder.displayTextView.setTextColor(Color.parseColor("#000000"));
+        }
+
         csvHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override

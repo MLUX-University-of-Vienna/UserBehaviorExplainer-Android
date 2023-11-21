@@ -1,6 +1,7 @@
 package com.example.perceptron_app_bachelorarbeit.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,15 @@ public class RecycleViewAdapterNode extends RecyclerView.Adapter<RecycleViewAdap
         Integer keyValueOfItem = (Integer) dataFromNode.keySet().toArray()[positionOfCSVElement];
         String displayItem = dataFromNode.get(keyValueOfItem);
         csvElementHolder.displayTextView.setText(displayItem);
+
+        if(positionOfCSVElement %2 == 0){
+            csvElementHolder.displayTextView.setBackgroundColor(Color.parseColor("#0864A4"));
+        } else {
+            csvElementHolder.displayTextView.setBackgroundColor(Color.parseColor("#d3d3d3"));
+            csvElementHolder.displayTextView.setTextColor(Color.parseColor("#000000"));
+        }
+
+
         csvElementHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View displayView) {
