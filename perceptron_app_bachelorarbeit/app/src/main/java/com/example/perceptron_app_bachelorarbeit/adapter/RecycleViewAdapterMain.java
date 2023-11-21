@@ -45,9 +45,7 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
         String displayItem = dataFromMain.get(keyValueOfElement);
         csvHolder.displayTextView.setText(displayItem);
 
-        if(positionOfElement %2 == 0){
-            csvHolder.displayTextView.setBackgroundColor(Color.parseColor("#0864A4"));
-        } else {
+        if(positionOfElement %2 != 0){
             csvHolder.displayTextView.setBackgroundColor(Color.parseColor("#d3d3d3"));
             csvHolder.displayTextView.setTextColor(Color.parseColor("#000000"));
         }

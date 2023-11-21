@@ -44,13 +44,10 @@ public class RecycleViewAdapterNode extends RecyclerView.Adapter<RecycleViewAdap
         String displayItem = dataFromNode.get(keyValueOfItem);
         csvElementHolder.displayTextView.setText(displayItem);
 
-        if(positionOfCSVElement %2 == 0){
-            csvElementHolder.displayTextView.setBackgroundColor(Color.parseColor("#0864A4"));
-        } else {
+        if(positionOfCSVElement %2 != 0){
             csvElementHolder.displayTextView.setBackgroundColor(Color.parseColor("#d3d3d3"));
             csvElementHolder.displayTextView.setTextColor(Color.parseColor("#000000"));
         }
-
 
         csvElementHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
