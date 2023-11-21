@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Class Storage is used for the whole storing and processing of the CSV Data
@@ -55,7 +54,6 @@ public class Storage {
      * Also starts the best and Worst function to get the Data
      */
     public void setEventsAndValues() {
-        boolean first = true;
 
         HashMap<Integer, DisplayNode> insertMap = new HashMap<>();
         for(int counterRows = 0; counterRows < firstRow.size(); counterRows++){
@@ -224,15 +222,25 @@ public class Storage {
      */
 
     private String changeValueForQuarter(String value){
+        String first = "";
+        String second = "";
         switch(value) {
             case "q1":
-                return "00:00-06:00";
+                first = new StringBuilder().appendCodePoint(0x1F55B).toString();
+                second = new StringBuilder().appendCodePoint(0x1F555).toString();
+                return first + " - " + second;
             case "q2":
-                return "06:00-12:00";
+                first = new StringBuilder().appendCodePoint(0x1F555).toString();
+                second = new StringBuilder().appendCodePoint(0x1F55B).toString();
+                return first + " - " + second;
             case "q3":
-                return "12:00-18:00";
+                first = new StringBuilder().appendCodePoint(0x1F55B).toString();
+                second = new StringBuilder().appendCodePoint(0x1F555).toString();
+                return first + " - " + second;
             case "q4":
-                return  "18:00-24:00";
+                first = new StringBuilder().appendCodePoint(0x1F555).toString();
+                second = new StringBuilder().appendCodePoint(0x1F55B).toString();
+                return first + " - " + second;
             default:
                 return "?";
         }
@@ -248,7 +256,7 @@ public class Storage {
         return value.length() <= 6 ?
                 "?"
                 :
-                value;
+                value + "°";
     }
 
     /**
@@ -260,9 +268,9 @@ public class Storage {
     private String changeForPrecip(String value){
         switch(value){
             case "0.0":
-                return "Sunny";
+                return "☀";
             case "1.0":
-                return "Rainy";
+                return "☔";
             default:
                 return "?";
         }
