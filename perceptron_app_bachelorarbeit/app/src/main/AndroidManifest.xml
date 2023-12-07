@@ -22,13 +22,13 @@
         </activity>
 
         <activity
-            android:name=".activities.PerceptronActivity"
-            android:exported="true"
-            />
-        <activity
             android:name=".activities.NodeActivity"
             android:exported="true"
             />
+
+        <activity android:name=".activities.DescriptionActivity"
+            android:exported="true"
+        />
 
         <activity
             android:name=".activities.TotalNode"

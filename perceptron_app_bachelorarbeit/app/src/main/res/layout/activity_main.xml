@@ -7,29 +7,33 @@
     tools:context=".activities.MainActivity">
 
     <Button
+        android:id="@+id/search_main"
+        android:layout_width="134dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/standard_button"
+        android:padding="30px"
+        android:text="Search"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchViewMain"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarMainPage"
+        tools:ignore="MissingConstraints" />
+
+    <Button
         android:id="@+id/import_csv_main"
         android:layout_width="400px"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/standard_button"
         android:padding="30px"
         android:text="Import csv"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/view_perceptron"
-        android:layout_width="400px"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/standard_button"
-        android:padding="30px"
-        android:text="View Perceptron"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewDescription"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewDescription"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -40,22 +44,24 @@
         android:padding="30px"
         android:text="TextView"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewDescription"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewDescription"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewDescription"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMainPage"
@@ -76,8 +82,21 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarMainPage"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewDescription"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewDescription"
         app:layout_constraintTop_toTopOf="@+id/toolbarMainPage" />
+
+    <SearchView
+        android:id="@+id/searchViewMain"
+        android:layout_width="213dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDescription"
+        app:layout_constraintEnd_toStartOf="@+id/search_main"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarMainPage"
+        app:layout_constraintVertical_bias="0.47" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

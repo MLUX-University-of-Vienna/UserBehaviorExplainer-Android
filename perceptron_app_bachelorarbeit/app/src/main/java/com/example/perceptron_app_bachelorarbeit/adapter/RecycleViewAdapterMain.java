@@ -46,8 +46,7 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
         csvHolder.displayTextView.setText(displayItem);
 
         if(positionOfElement %2 != 0){
-            csvHolder.displayTextView.setBackgroundColor(Color.parseColor("#d3d3d3"));
-            csvHolder.displayTextView.setTextColor(Color.parseColor("#000000"));
+            csvHolder.displayTextView.setBackgroundColor(Color.parseColor("#ADD8E6"));
         }
 
         csvHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +64,6 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
     public int getItemCount() {
         return dataFromMain.size();
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView displayTextView;
 

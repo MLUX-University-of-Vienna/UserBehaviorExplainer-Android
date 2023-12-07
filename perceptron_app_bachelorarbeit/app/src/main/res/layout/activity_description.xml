@@ -5,6 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/backToNode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarPoint"
+        app:layout_constraintVertical_bias="1.0" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarPoint"
         android:layout_width="match_parent"
@@ -20,7 +35,7 @@
         android:id="@+id/textViewPerceptron"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Perceptron"
+        android:text="Description of Elementshortcuts"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolBarPoint"
@@ -30,30 +45,17 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/buttonPerceptronBackToMain"
+        android:id="@+id/backToNode"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/standard_button"
         android:padding="10dp"
-        android:text="Back to Main"
+        android:text="Back to Node"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imagePerceptron"
-        app:layout_constraintStart_toStartOf="@+id/imagePerceptron"
-        app:layout_constraintTop_toBottomOf="@+id/imagePerceptron"
-        tools:ignore="HardcodedText" />
-
-    <ImageView
-        android:id="@+id/imagePerceptron"
-        android:layout_width="360dp"
-        android:layout_height="537dp"
-        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBarPoint"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        android:contentDescription="TODO"
-        tools:ignore="ContentDescription,HardcodedText" />
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

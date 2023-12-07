@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
         //Button to get input of CSV
         Button inputCSV = findViewById(R.id.import_csv_main);
         inputCSV.setOnClickListener(view -> filePicker());
-        Button viewPerceptron = findViewById(R.id.view_perceptron);
-        viewPerceptron.setOnClickListener(view -> loadPerceptron());
         TextView startingPage = findViewById(R.id.mainPageInformation);
-        recyclerViewMainActivity = findViewById(R.id.recyclerView);
+        recyclerViewMainActivity = findViewById(R.id.recyclerViewDescription);
 
         if(csvData.size() >= 1){
             startingPage.setText("CSV Selected");
@@ -56,11 +53,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * loadPerceptron should open the PerceptronActivity for Display of the Perceptron
      */
-
-    private void loadPerceptron() {
-        Intent intent = new Intent(this, PerceptronActivity.class);
-        startActivity(intent);
-    }
 
     private void filePicker() {
         Intent csvImport = new Intent(Intent.ACTION_GET_CONTENT);

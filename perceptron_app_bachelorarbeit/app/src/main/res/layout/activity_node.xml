@@ -6,25 +6,108 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/showTotalPoint"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/temperatureData"
+        android:layout_width="121dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/standard_button"
         android:padding="10dp"
-        android:text="Total Node Data"
+        android:text="Temperatur"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timeData"
+        app:layout_constraintTop_toBottomOf="@+id/topDataPoint"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/timeData"
+        android:layout_width="121dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/standard_button"
+        android:padding="10dp"
+        android:text="Time"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/temperatureData"
+        app:layout_constraintStart_toEndOf="@+id/weatherData"
+        app:layout_constraintTop_toBottomOf="@+id/allDataPoint"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/weatherData"
+        android:layout_width="121dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/standard_button"
+        android:padding="10dp"
+        android:text="Weather"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/timeData"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allDataPoint"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/topDataPoint"
+        android:layout_width="172dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/standard_button"
+        android:padding="10dp"
+        android:text="Top per Category"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/allDataPoint"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/allDataPoint"
+        android:layout_width="172dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/standard_button"
+        android:padding="10dp"
+        android:text="All Data"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/topDataPoint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Icondescription"
+        android:layout_width="172dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/standard_button"
+        android:padding="10dp"
+        android:text="Icon Description"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerTotal"
         tools:ignore="HardcodedText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHighestPoint"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="380dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/Icondescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +124,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/textViewPointTotal"
         android:layout_width="wrap_content"
@@ -50,70 +134,23 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
-
-    <Button
-        android:id="@+id/buttonLeftPoint"
-        android:layout_width="400px"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:drawableLeft="@drawable/back_arrow"
-        android:padding="30px"
-        android:text="Left Point"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toStartOf="@+id/textViewPointTotal"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
-    <Button
-        android:id="@+id/buttonRightPoint"
-        android:layout_width="400px"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:drawableRight="@drawable/forward_arrow"
-        android:padding="30px"
-        android:text="Right Point"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintStart_toEndOf="@+id/textViewPointTotal"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/pointHighest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:padding="30px"
-        android:text="Highest Cases of Node"
+        android:text="Top and Worst of Node"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <TextView
-        android:id="@+id/pointLowest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="30px"
-        android:text="Lowest Cases of Node"
-        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerHighestPoint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerHighestPoint" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTotal"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointLowest" />
+        app:layout_constraintTop_toBottomOf="@+id/timeData" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
