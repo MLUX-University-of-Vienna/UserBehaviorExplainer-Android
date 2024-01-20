@@ -23,10 +23,10 @@ import java.util.HashMap;
 public class NodeActivity extends AppCompatActivity {
 
     private DisplayNode runningNode;
-    private DisplayNode previousNode;
-    private DisplayNode nextNode;
-    private RecyclerView recyclerHighestPoint;
-    private RecyclerView recyclerLowestPoint;
+    private RecyclerView recyclerPoints;
+    private Boolean allDataSet = true;
+
+    private TextView pointInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,69 +35,52 @@ public class NodeActivity extends AppCompatActivity {
         TextView textViewPoint = findViewById(R.id.textViewPointTotal);
         runningNode = MainActivity.storageForData.getRunningNode();
         System.out.println(runningNode.getNodeName());
-        previousNode = MainActivity.storageForData.getPreviousNode(runningNode.getNodeName());
-        nextNode = MainActivity.storageForData.getNextNode(runningNode.getNodeName());
         textViewPoint.setText("Node - " + runningNode.getNodeName());
+        recyclerPoints = findViewById(R.id.recyclerHighestPoint);
+        pointInformation = findViewById(R.id.pointInformation);
+        pointInformation.setText("No Category selected - Please select one");
+        //Buttons and Listeners
 
-        //Button next = findViewById(R.id.buttonRightPoint);
-        //Button previous = findViewById(R.id.buttonLeftPoint);
-        //next.setText(nextNode.getNodeName());
-        //previous.setText(previousNode.getNodeName());
-
-        //next.setOnClickListener(view -> loadNext());
-        //previous.setOnClickListener(view -> loadPrevious());
-        recyclerHighestPoint = findViewById(R.id.recyclerHighestPoint);
-        //recyclerLowestPoint = findViewById(R.id.recyclerTotal);
         Button goToDescription = findViewById(R.id.Icondescription);
         goToDescription.setOnClickListener(view -> goToDescription());
-        fillNode();
+
+        Button allValuesOfNode = findViewById(R.id.allDataPoint);
+        allValuesOfNode.setOnClickListener(view -> allValuesOfNodeActive());
+
+        Button topDataPoint = findViewById(R.id.topDataPoint);
+        topDataPoint.setOnClickListener(view -> topDataPointActive());
+
+        Button weatherData = findViewById(R.id.weatherData);
+        weatherData.setOnClickListener(view -> fillWeatherNodeValues());
+
+        Button timeData = findViewById(R.id.timeData);
+        timeData.setOnClickListener(view -> fillTimeNodeValues());
+
+        Button temperatureData = findViewById(R.id.temperatureData);
+        temperatureData.setOnClickListener(view -> fillTemperatureNodeValues());
     }
 
     /**
      * goToToal opens the TotalNode Activity for a Node
      */
-
     private void goToDescription(){
         Intent intent = new Intent(this, DescriptionActivity.class);
         startActivity(intent);
     }
 
-    /**
-     * loadNext opens the next Node from the List
-
-
-    private void loadNext(){
-        MainActivity.storageForData.setRunningNode(nextNode.getNodeName());
-        Intent intent = new Intent(this, NodeActivity.class);
-        startActivity(intent);
-    }
-     */
-
-    /**
-     * loadPrevious opens the previous Node from the List
-
-
-    private void loadPrevious(){
-        MainActivity.storageForData.setRunningNode(previousNode.getNodeName());
-        Intent intent = new Intent(this, NodeActivity.class);
-        startActivity(intent);
-    }
-    */
-
-    /**
-     * fillNode opens the functions to fill the Recycler Views for the Node
-     */
-
-    private void fillNode() {
-        fillTop();
-        //fillBottom();
+    private void allValuesOfNodeActive(){
+        allDataSet = true;
+        pointInformation.setText("All Values of Node ");
+        fillAllNodeValues();
     }
 
-    /**
-     * Fill Top fills the recycler View for the Top elements of the Node
-     */
+    private void topDataPointActive() {
+        allDataSet = false;
+        pointInformation.setText("Highest and Lowest Node Values");
+        fillTopNodeValues();
+    }
 
-    private void fillTop() {
+    private void fillAllNodeValues() {
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
         for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
             Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -105,38 +88,109 @@ public class NodeActivity extends AppCompatActivity {
             if(insertNode.getValue().length() <=4) {
                 valueOfNode = insertNode.getValue();
             } else {
-                valueOfNode = insertNode.getValue().substring(0,3);
+                valueOfNode = insertNode.getValue().substring(0,5);
             }
 
-            String value = "PV: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+            String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
             valuesOfNode.put(indexOfNodes, value);
         }
 
         RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
-        recyclerHighestPoint.setAdapter(adapterForRecycle);
-        recyclerHighestPoint.setLayoutManager(new LinearLayoutManager(this));
+        recyclerPoints.setAdapter(adapterForRecycle);
+        recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    /**
-     * Fill Bottom fills the recycler View for the bottom elements of the Node
-     */
+    private void fillTopNodeValues() {
 
-    private void fillBottom() {
-        HashMap<Integer, String> bottomValue = new HashMap<>();
-        for(int indexForBottomValues = 5; indexForBottomValues < 10; indexForBottomValues++){
-            Node insertNode = runningNode.getBestNodes().get(indexForBottomValues);
-            String valueOfNode = "";
-            if(insertNode.getValue().length() <=6) {
-                valueOfNode = insertNode.getValue();
-            } else {
-                valueOfNode = insertNode.getValue().substring(0,5);
+    }
+
+    private void fillWeatherNodeValues() {
+        if(allDataSet){
+            HashMap<Integer, String> valuesOfNode = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
+                Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
+                if(insertNode.getEvent().contains("p_n")){
+                    String valueOfNode = "";
+                    if(insertNode.getValue().length() <=4) {
+                        valueOfNode = insertNode.getValue();
+                    } else {
+                        valueOfNode = insertNode.getValue().substring(0,5);
+                    }
+
+                    String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                    valuesOfNode.put(indexOfNodes, value);
+                } else {
+                    continue;
+                }
             }
-            String value = "PV: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
-            bottomValue.put(indexForBottomValues, value);
-        }
 
-        RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, bottomValue);
-        recyclerLowestPoint.setAdapter(adapterForRecycle);
-        recyclerLowestPoint.setLayoutManager(new LinearLayoutManager(this));
+            RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
+            recyclerPoints.setAdapter(adapterForRecycle);
+            recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
+            pointInformation.setText("All Values of Node for Weather");
+
+        } else {
+            pointInformation.setText("Highest and Lowest Values for Weather");
+        }
+    }
+
+    private void fillTimeNodeValues() {
+        if(allDataSet){
+            HashMap<Integer, String> valuesOfNode = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
+                Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
+
+                if(insertNode.getEvent().contains("tq_n")){
+
+                    String valueOfNode = "";
+                    if(insertNode.getValue().length() <=4) {
+                        valueOfNode = insertNode.getValue();
+                    } else {
+                        valueOfNode = insertNode.getValue().substring(0,5);
+                    }
+                    String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                    valuesOfNode.put(indexOfNodes, value);
+                } else {
+                    continue;
+                }
+            }
+
+            RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
+            recyclerPoints.setAdapter(adapterForRecycle);
+            recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
+            pointInformation.setText("All Values of Node for Time");
+        } else {
+            pointInformation.setText("Highest and Lowest Values for Time");
+        }
+    }
+
+    private void fillTemperatureNodeValues() {
+        if(allDataSet){
+            HashMap<Integer, String> valuesOfNode = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
+                Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
+
+                if(insertNode.getEvent().contains("t_n")){
+                    String valueOfNode = "";
+                    if(insertNode.getValue().length() <=4) {
+                        valueOfNode = insertNode.getValue();
+                    } else {
+                        valueOfNode = insertNode.getValue().substring(0,5);
+                    }
+
+                    String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                    valuesOfNode.put(indexOfNodes, value);
+                } else {
+                    continue;
+                }
+            }
+
+            RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
+            recyclerPoints.setAdapter(adapterForRecycle);
+            recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
+            pointInformation.setText("All Values of Node for Temperature");
+        } else {
+            pointInformation.setText("Highest and Lowest Values for Temperature");
+        }
     }
 }

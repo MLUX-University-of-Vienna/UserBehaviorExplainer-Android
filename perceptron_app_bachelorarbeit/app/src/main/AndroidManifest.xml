@@ -29,12 +29,6 @@
         <activity android:name=".activities.DescriptionActivity"
             android:exported="true"
         />
-
-        <activity
-            android:name=".activities.TotalNode"
-            android:exported="true"
-            />
-
     </application>
 
 </manifest>

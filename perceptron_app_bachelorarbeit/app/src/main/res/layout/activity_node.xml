@@ -14,7 +14,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/standard_button"
         android:padding="10dp"
-        android:text="Temperatur"
+        android:text="Temperature"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/timeData"
@@ -56,13 +56,13 @@
     <Button
         android:id="@+id/topDataPoint"
         android:layout_width="172dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/standard_button"
         android:padding="10dp"
-        android:text="Top per Category"
+        android:text="Highest and Lowest Node Values"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/allDataPoint"
@@ -72,13 +72,13 @@
     <Button
         android:id="@+id/allDataPoint"
         android:layout_width="172dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/standard_button"
         android:padding="10dp"
-        android:text="All Data"
+        android:text="All Values of Node"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/topDataPoint"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointHighest" />
+        app:layout_constraintTop_toBottomOf="@+id/pointInformation" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -139,14 +139,14 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/pointHighest"
+        android:id="@+id/pointInformation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:padding="30px"
-        android:text="Top and Worst of Node"
-        android:textSize="15sp"
+        android:text=""
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerHighestPoint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

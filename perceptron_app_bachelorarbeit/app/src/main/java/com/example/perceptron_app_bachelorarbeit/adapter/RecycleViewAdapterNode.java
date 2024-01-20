@@ -1,13 +1,13 @@
 package com.example.perceptron_app_bachelorarbeit.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perceptron_app_bachelorarbeit.R;
@@ -28,7 +28,6 @@ public class RecycleViewAdapterNode extends RecyclerView.Adapter<RecycleViewAdap
         this.nodeContext = nodeContext;
     }
 
-
     @NonNull
     @Override
     public RecycleViewAdapterNode.ViewHolder onCreateViewHolder(@NonNull ViewGroup parentView, int viewTypeParent) {
@@ -44,16 +43,14 @@ public class RecycleViewAdapterNode extends RecyclerView.Adapter<RecycleViewAdap
         String displayItem = dataFromNode.get(keyValueOfItem);
         csvElementHolder.displayTextView.setText(displayItem);
 
-        if(positionOfCSVElement %2 != 0){
-            csvElementHolder.displayTextView.setBackgroundColor(Color.parseColor(("#ADD8E6")));
+        // Reset background color for both even and odd positions
+        if (positionOfCSVElement % 2 == 0) {
+            csvElementHolder.displayTextView.setBackground(ContextCompat.getDrawable(nodeContext, R.drawable.standard_button));
         }
 
-        csvElementHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View displayView) {
-                System.out.println("Clicked but not needed");
-            }
-        });
+        if (positionOfCSVElement % 2 != 0) {
+            csvElementHolder.displayTextView.setBackground(ContextCompat.getDrawable(nodeContext, R.drawable.standard_button_alternative));
+        }
     }
 
     @Override

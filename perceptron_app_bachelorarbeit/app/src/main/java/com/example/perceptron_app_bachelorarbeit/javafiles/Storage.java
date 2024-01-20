@@ -57,6 +57,7 @@ public class Storage {
 
         HashMap<Integer, DisplayNode> insertMap = new HashMap<>();
         for(int counterRows = 0; counterRows < firstRow.size(); counterRows++){
+            System.out.println(firstRow.get(counterRows));
             DisplayNode insert = new DisplayNode(firstRow.get(counterRows));
             insertMap.put(counterRows,insert);
         }
@@ -69,7 +70,9 @@ public class Storage {
             int counterForMap = 0;
 
             for(int counterElement = 1; counterElement < element.size(); counterElement++){
-                Node insert = new Node(event,element.get(counterElement));
+                String value = element.get(counterElement);
+                String substring = value.substring(0, Math.min(value.length(), 6));
+                Node insert = new Node(event,substring);
                 HashMap<Integer, Node> nodeInsert = insertMap.get(counterForMap).getNodesComplete();
                 nodeInsert.put(index,insert);
                 insertMap.get(counterForMap).setNodesComplete(nodeInsert);
@@ -124,6 +127,10 @@ public class Storage {
         }
 
         displayNodeMap = displayNodeMapInsert;
+    }
+
+    public HashMap<Integer, DisplayNode> getBestAndWorstForCategory() {
+        return null;
     }
 
     /**
@@ -183,13 +190,11 @@ public class Storage {
         for(String elementInValues : values.values()){
             if(counterForBreakline%2 != 0 && counterForBreakline != 0 && counterForBreakline != values.size()-1){
                 convertedReturn += elementInValues + "\n";
-
             } else {
-                convertedReturn += " " + elementInValues + " ";
+                convertedReturn += elementInValues;
             }
             counterForBreakline++;
         }
-
         return convertedReturn;
     }
 
@@ -242,7 +247,7 @@ public class Storage {
                 second = new StringBuilder().appendCodePoint(0x1F55B).toString();
                 return first + " - " + second;
             default:
-                return "?";
+                return "❔";
         }
     }
 
@@ -254,9 +259,9 @@ public class Storage {
 
     private String changeForTemperature(String value) {
         return value.length() <= 6 ?
-                "?"
+                "❔"
                 :
-                value + "°";
+                value + "° celcius";
     }
 
     /**
@@ -272,7 +277,7 @@ public class Storage {
             case "1.0":
                 return "☔";
             default:
-                return "?";
+                return "❔";
         }
     }
 

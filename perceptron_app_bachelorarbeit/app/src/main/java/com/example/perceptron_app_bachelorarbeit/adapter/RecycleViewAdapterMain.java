@@ -3,13 +3,13 @@ package com.example.perceptron_app_bachelorarbeit.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perceptron_app_bachelorarbeit.R;
@@ -45,18 +45,18 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
         String displayItem = dataFromMain.get(keyValueOfElement);
         csvHolder.displayTextView.setText(displayItem);
 
-        if(positionOfElement %2 != 0){
-            csvHolder.displayTextView.setBackgroundColor(Color.parseColor("#ADD8E6"));
+        if(positionOfElement %2 == 0){
+            csvHolder.displayTextView.setBackground(ContextCompat.getDrawable(mainContext, R.drawable.standard_button));
         }
 
-        csvHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        if(positionOfElement %2 != 0){
+            csvHolder.displayTextView.setBackground(ContextCompat.getDrawable(mainContext, R.drawable.standard_button_alternative));
+        }
 
-            @Override
-            public void onClick(View displayView) {
-                MainActivity.storageForData.setRunningNode(dataFromMain.get(positionOfElement));
-                Intent goToNode = new Intent(mainContext, NodeActivity.class);
-                mainContext.startActivity(goToNode);
-            }
+        csvHolder.itemView.setOnClickListener(displayView -> {
+            MainActivity.storageForData.setRunningNode(dataFromMain.get(positionOfElement));
+            Intent goToNode = new Intent(mainContext, NodeActivity.class);
+            mainContext.startActivity(goToNode);
         });
     }
 
