@@ -1,19 +1,18 @@
 package com.example.perceptron_app_bachelorarbeit.activities;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterMain;
 import com.example.perceptron_app_bachelorarbeit.javafiles.Event;
 import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.javafiles.Storage;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static final Storage storageForData = new Storage();
     private RecyclerView recyclerViewMainActivity;
     private HashMap<Integer, Event> eventDataFromCSV = new HashMap<>();
+    private EditText searchValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +41,54 @@ public class MainActivity extends AppCompatActivity {
         inputCSV.setOnClickListener(view -> filePicker());
         TextView startingPage = findViewById(R.id.mainPageInformation);
         recyclerViewMainActivity = findViewById(R.id.recyclerViewDescription);
+        Button searchView = findViewById(R.id.search_main);
+        searchView.setOnClickListener(view -> onClickSearch());
+        searchValue = findViewById(R.id.editTextSearch);
+
+        searchValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // This method is called to notify you that characters within `charSequence` are about to be replaced with new text.
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                onClickSearch();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // This method is called to notify you that the characters within `editable` have changed.
+                // It is called after the text has been changed.
+            }
+        });
 
         if(csvData.size() >= 1){
             startingPage.setText("CSV Selected");
-
         } else {
             startingPage.setText("To start the application select a csv for import");
         }
     }
 
+    private void onClickSearch() {
+        HashMap<Integer, String> firstRow = new HashMap<>();
+            if(!searchValue.getText().toString().isEmpty()){
+                for(int i = 0; i < storageForData.getNames().size(); i++){
+                    String elementOfStorage = storageForData.getNames().get(i);
+                    if(elementOfStorage.contains(searchValue.getText().toString())){
+                        firstRow.put(i,elementOfStorage);
+                    }
+                }
+                RecycleViewAdapterMain adapterForRecycle = new RecycleViewAdapterMain(this, firstRow);
+                recyclerViewMainActivity.setAdapter(adapterForRecycle);
+                recyclerViewMainActivity.setLayoutManager(new LinearLayoutManager(this));
+            }
+            else {
+                Recycle();
+            }
+    }
+
     /**
      * loadPerceptron should open the PerceptronActivity for Display of the Perceptron
      */
-
     private void filePicker() {
         Intent csvImport = new Intent(Intent.ACTION_GET_CONTENT);
         csvImport.setType("*/*"); // Set the MIME type to all files
