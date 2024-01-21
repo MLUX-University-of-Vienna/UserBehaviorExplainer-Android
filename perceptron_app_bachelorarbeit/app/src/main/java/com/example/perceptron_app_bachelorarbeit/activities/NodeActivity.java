@@ -13,6 +13,7 @@ import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterNode;
 import com.example.perceptron_app_bachelorarbeit.javafiles.DisplayNode;
 import com.example.perceptron_app_bachelorarbeit.javafiles.Node;
+import com.example.perceptron_app_bachelorarbeit.javafiles.Storage;
 
 import java.util.HashMap;
 
@@ -101,7 +102,24 @@ public class NodeActivity extends AppCompatActivity {
     }
 
     private void fillTopNodeValues() {
+        HashMap<Integer, String> valuesOfNode = new HashMap<>();
+        for(int indexOfNodes = 0; indexOfNodes < runningNode.getBestNodes().size(); indexOfNodes++){
+            Node insertNode = runningNode.getBestNodes().get(indexOfNodes);
+            String valueOfNode = "";
+            if(insertNode.getValue().length() <=4) {
+                valueOfNode = insertNode.getValue();
+            } else {
+                valueOfNode = insertNode.getValue().substring(0,5);
+            }
+            String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+            valuesOfNode.put(indexOfNodes, value);
+        }
 
+        RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
+        recyclerPoints.setAdapter(adapterForRecycle);
+        recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
+
+        pointInformation.setText("Highest and Lowest of Node");
     }
 
     private void fillWeatherNodeValues() {
@@ -119,8 +137,6 @@ public class NodeActivity extends AppCompatActivity {
 
                     String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                     valuesOfNode.put(indexOfNodes, value);
-                } else {
-                    continue;
                 }
             }
 
@@ -130,6 +146,33 @@ public class NodeActivity extends AppCompatActivity {
             pointInformation.setText("All Values of Node for Weather");
 
         } else {
+            HashMap<Integer, Node> insertWheater = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
+                Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
+                if (insertNode.getEvent().contains("p_n")) {
+                    insertWheater.put(indexOfNodes, insertNode);
+                }
+            }
+
+            DisplayNode topAndWorstWeather = new DisplayNode(insertWheater);
+            topAndWorstWeather = MainActivity.storageForData.getBestAndWorst(topAndWorstWeather);
+
+            HashMap<Integer, String> valuesOfNode = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < topAndWorstWeather.getBestNodes().size(); indexOfNodes++){
+                Node insertNode = topAndWorstWeather.getBestNodes().get(indexOfNodes);
+                String valueOfNode = "";
+                if(insertNode.getValue().length() <=4) {
+                    valueOfNode = insertNode.getValue();
+                } else {
+                    valueOfNode = insertNode.getValue().substring(0,5);
+                }
+                String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                valuesOfNode.put(indexOfNodes, value);
+            }
+            RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
+            recyclerPoints.setAdapter(adapterForRecycle);
+            recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
+
             pointInformation.setText("Highest and Lowest Values for Weather");
         }
     }
@@ -150,8 +193,6 @@ public class NodeActivity extends AppCompatActivity {
                     }
                     String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                     valuesOfNode.put(indexOfNodes, value);
-                } else {
-                    continue;
                 }
             }
 
@@ -160,6 +201,33 @@ public class NodeActivity extends AppCompatActivity {
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
             pointInformation.setText("All Values of Node for Time");
         } else {
+            HashMap<Integer, Node> insertTime = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
+                Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
+                if (insertNode.getEvent().contains("tq_n")) {
+                    insertTime.put(indexOfNodes, insertNode);
+                }
+            }
+
+            DisplayNode topAndWorstTime = new DisplayNode(insertTime);
+            topAndWorstTime = MainActivity.storageForData.getBestAndWorst(topAndWorstTime);
+
+            HashMap<Integer, String> valuesOfNode = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < topAndWorstTime.getBestNodes().size(); indexOfNodes++){
+                Node insertNode = topAndWorstTime.getBestNodes().get(indexOfNodes);
+                String valueOfNode = "";
+                if(insertNode.getValue().length() <=4) {
+                    valueOfNode = insertNode.getValue();
+                } else {
+                    valueOfNode = insertNode.getValue().substring(0,5);
+                }
+                String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                valuesOfNode.put(indexOfNodes, value);
+            }
+
+            RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
+            recyclerPoints.setAdapter(adapterForRecycle);
+            recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
             pointInformation.setText("Highest and Lowest Values for Time");
         }
     }
@@ -180,8 +248,6 @@ public class NodeActivity extends AppCompatActivity {
 
                     String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                     valuesOfNode.put(indexOfNodes, value);
-                } else {
-                    continue;
                 }
             }
 
@@ -190,6 +256,34 @@ public class NodeActivity extends AppCompatActivity {
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
             pointInformation.setText("All Values of Node for Temperature");
         } else {
+            HashMap<Integer, Node> insertTemperature = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
+                Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
+                if (insertNode.getEvent().contains("t_n")) {
+                    insertTemperature.put(indexOfNodes, insertNode);
+                }
+            }
+
+            DisplayNode topAndWorstTemperature = new DisplayNode(insertTemperature);
+            topAndWorstTemperature = MainActivity.storageForData.getBestAndWorst(topAndWorstTemperature);
+
+            HashMap<Integer, String> valuesOfNode = new HashMap<>();
+            for(int indexOfNodes = 0; indexOfNodes < topAndWorstTemperature.getBestNodes().size(); indexOfNodes++){
+                Node insertNode = topAndWorstTemperature.getBestNodes().get(indexOfNodes);
+                String valueOfNode = "";
+                if(insertNode.getValue().length() <=4) {
+                    valueOfNode = insertNode.getValue();
+                } else {
+                    valueOfNode = insertNode.getValue().substring(0,5);
+                }
+                String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
+                valuesOfNode.put(indexOfNodes, value);
+            }
+
+            RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
+            recyclerPoints.setAdapter(adapterForRecycle);
+            recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
+
             pointInformation.setText("Highest and Lowest Values for Temperature");
         }
     }

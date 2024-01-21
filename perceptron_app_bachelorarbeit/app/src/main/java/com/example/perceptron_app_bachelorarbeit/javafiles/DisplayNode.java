@@ -24,6 +24,10 @@ public class DisplayNode {
         this.bestNodes = bestNodes;
     }
 
+    public DisplayNode(HashMap<Integer, Node> bestNodes) {
+        this.bestNodes = bestNodes;
+    }
+
     public DisplayNode(String nodeName) {
         this.nodeName = nodeName;
     }

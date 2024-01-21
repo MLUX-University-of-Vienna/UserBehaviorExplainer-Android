@@ -129,8 +129,37 @@ public class Storage {
         displayNodeMap = displayNodeMapInsert;
     }
 
-    public HashMap<Integer, DisplayNode> getBestAndWorstForCategory() {
-        return null;
+    public DisplayNode getBestAndWorst(DisplayNode displayNode) {
+        List<Node> allNodesFromPoint = new ArrayList<>();
+        allNodesFromPoint.addAll(displayNode.bestNodes.values());
+
+        Collections.sort(allNodesFromPoint, new Comparator<Node>() {
+            @Override
+            public int compare(Node firstNode, Node secondNode) {
+                double compareFirst = Double.parseDouble(firstNode.getValue());
+                double compareSecond = Double.parseDouble(secondNode.getValue());
+                return Double.compare(compareFirst, compareSecond);
+            }
+        });
+
+        List<Node> lowest = allNodesFromPoint.subList(0, Math.min(5, allNodesFromPoint.size()));
+        List<Node> highest = allNodesFromPoint.subList(Math.max(allNodesFromPoint.size() - 5, 0), allNodesFromPoint.size());
+
+        HashMap<Integer, Node> bestNodes = new HashMap<>();
+
+        int counter = 0;
+        for (Node elementHighest : highest) {
+            bestNodes.put(counter, elementHighest);
+            counter++;
+        }
+
+        for (Node elementLowest : lowest) {
+            bestNodes.put(counter, elementLowest);
+            counter++;
+        }
+
+        DisplayNode insert = new DisplayNode(bestNodes);
+        return insert;
     }
 
     /**
