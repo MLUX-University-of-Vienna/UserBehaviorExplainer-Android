@@ -8,6 +8,12 @@ public class Node {
     String value;
     String event;
 
+    /**
+     * Constructur of Class
+     *
+     * @param event represents the event that occured
+     * @param value represents the perceptron value
+     */
     public Node(String event, String value) {
         this.value = value;
         this.event = event;

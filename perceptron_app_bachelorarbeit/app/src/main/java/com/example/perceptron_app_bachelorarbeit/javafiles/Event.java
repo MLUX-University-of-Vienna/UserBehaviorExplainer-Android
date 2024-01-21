@@ -8,6 +8,12 @@ public class Event {
     String identifier;
     String description;
 
+    /**
+     * Constructur of Class
+     *
+     * @param identifier  represents the event that occured with the right identifier
+     * @param description represents the representation of it like the arrows for display
+     */
     public Event(String identifier, String description) {
         this.identifier = identifier;
         this.description = description;

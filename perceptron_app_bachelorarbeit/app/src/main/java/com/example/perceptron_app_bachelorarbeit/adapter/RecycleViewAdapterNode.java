@@ -32,8 +32,8 @@ public class RecycleViewAdapterNode extends RecyclerView.Adapter<RecycleViewAdap
     @Override
     public RecycleViewAdapterNode.ViewHolder onCreateViewHolder(@NonNull ViewGroup parentView, int viewTypeParent) {
         View displayView = LayoutInflater.from(parentView
-            .getContext()).inflate(R.layout.list_item_layout_point, parentView
-            , false);
+                .getContext()).inflate(R.layout.list_item_layout_point, parentView
+                , false);
         return new RecycleViewAdapterNode.ViewHolder(displayView);
     }
 

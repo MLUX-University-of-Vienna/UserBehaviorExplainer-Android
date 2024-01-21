@@ -14,7 +14,7 @@ public class Storage {
     /**
      * csvData is the raw stored Data from the select and import
      */
-    private HashMap<Integer, HashMap<Integer,String>> csvData = new HashMap<>();
+    private HashMap<Integer, HashMap<Integer, String>> csvData = new HashMap<>();
     /**
      * firstRow is the first column with the event Names - needed for Recycle View
      */
@@ -24,10 +24,12 @@ public class Storage {
      */
     private HashMap<Integer, DisplayNode> displayNodeMap = new HashMap<>();
     /**
-     * events saves all possbile events and descriptions
+     * events saves all possible events and descriptions
      */
     private HashMap<Integer, Event> events = new HashMap<>();
-
+    /**
+     * running Node Represents the Node which is currently displayed
+     */
     private DisplayNode runningNode;
 
     /**
@@ -43,7 +45,7 @@ public class Storage {
     public void setNames() {
         HashMap<Integer, String> valuesOfFirstRow = csvData.get(0);
         int counterAdding = 0;
-        for(int counterNames = 1; counterNames < valuesOfFirstRow.size(); counterNames++){
+        for (int counterNames = 1; counterNames < valuesOfFirstRow.size(); counterNames++) {
             firstRow.put(counterAdding, valuesOfFirstRow.get(counterNames));
             counterAdding++;
         }
@@ -56,25 +58,25 @@ public class Storage {
     public void setEventsAndValues() {
 
         HashMap<Integer, DisplayNode> insertMap = new HashMap<>();
-        for(int counterRows = 0; counterRows < firstRow.size(); counterRows++){
+        for (int counterRows = 0; counterRows < firstRow.size(); counterRows++) {
             System.out.println(firstRow.get(counterRows));
             DisplayNode insert = new DisplayNode(firstRow.get(counterRows));
-            insertMap.put(counterRows,insert);
+            insertMap.put(counterRows, insert);
         }
 
         int index = 0;
 
-        for(int counterCSV = 1; counterCSV < csvData.size(); counterCSV++){
+        for (int counterCSV = 1; counterCSV < csvData.size(); counterCSV++) {
             HashMap<Integer, String> element = csvData.get(counterCSV);
             String event = element.get(0);
             int counterForMap = 0;
 
-            for(int counterElement = 1; counterElement < element.size(); counterElement++){
+            for (int counterElement = 1; counterElement < element.size(); counterElement++) {
                 String value = element.get(counterElement);
                 String substring = value.substring(0, Math.min(value.length(), 6));
-                Node insert = new Node(event,substring);
+                Node insert = new Node(event, substring);
                 HashMap<Integer, Node> nodeInsert = insertMap.get(counterForMap).getNodesComplete();
-                nodeInsert.put(index,insert);
+                nodeInsert.put(index, insert);
                 insertMap.get(counterForMap).setNodesComplete(nodeInsert);
                 counterForMap++;
             }
@@ -129,6 +131,12 @@ public class Storage {
         displayNodeMap = displayNodeMapInsert;
     }
 
+    /**
+     * Searches for the best and Worst nodes of the given style, Like Temperature, Time ...
+     *
+     * @param displayNode is given by the NodeActivity to check which are the highest and lowest values
+     * @return the values selected as highest and lowest 5 per each
+     */
     public DisplayNode getBestAndWorst(DisplayNode displayNode) {
         List<Node> allNodesFromPoint = new ArrayList<>();
         allNodesFromPoint.addAll(displayNode.bestNodes.values());
@@ -158,12 +166,12 @@ public class Storage {
             counter++;
         }
 
-        DisplayNode insert = new DisplayNode(bestNodes);
-        return insert;
+        return new DisplayNode(bestNodes);
     }
 
     /**
      * Here the Event gets converted to a readable String which can be displayed
+     *
      * @param convert is the Node which should be converted
      * @return gives back a readable String for the Activity to present
      */
@@ -176,22 +184,22 @@ public class Storage {
         int counterForValues = 0;
         String valueBefore = "";
 
-        for(int elementInString = 0; elementInString < convert.length(); elementInString++){
+        for (int elementInString = 0; elementInString < convert.length(); elementInString++) {
             running = running + convert.charAt(elementInString);
 
-            if(running.contains("$")){
-                values.put(counterForValues,translate(running));
+            if (running.contains("$")) {
+                values.put(counterForValues, translate(running));
                 valueBefore = running;
                 running = "";
                 counterForValues++;
-            } else if(running.contains("-+-")){
-                String valueToCheck = running.substring(0, running.length()-3);
+            } else if (running.contains("-+-")) {
+                String valueToCheck = running.substring(0, running.length() - 3);
 
-                if(valueBefore.contains("t_n")){
+                if (valueBefore.contains("t_n")) {
                     valueToCheck = changeForTemperature(valueToCheck);
-                } else if (valueBefore.contains("p_n")){
+                } else if (valueBefore.contains("p_n")) {
                     valueToCheck = changeForPrecip(valueToCheck);
-                } else if (valueBefore.contains("tq_n")){
+                } else if (valueBefore.contains("tq_n")) {
                     valueToCheck = changeValueForQuarter(valueToCheck);
                 }
 
@@ -204,43 +212,44 @@ public class Storage {
 
         String valueToCheck = running;
 
-        if(valueBefore.contains("t_n")){
+        if (valueBefore.contains("t_n")) {
             valueToCheck = changeForTemperature(valueToCheck);
-        } else if (valueBefore.contains("p_n")){
+        } else if (valueBefore.contains("p_n")) {
             valueToCheck = changeForPrecip(valueToCheck);
-        } else if (valueBefore.contains("tq_n")){
+        } else if (valueBefore.contains("tq_n")) {
             valueToCheck = changeValueForQuarter(valueToCheck);
         }
 
         values.put(counterForValues, changeValueForQuarter(valueToCheck));
 
-        int counterForBreakline = 0;
+        int counterForBreakLine = 0;
 
-        for(String elementInValues : values.values()){
-            if(counterForBreakline%2 != 0 && counterForBreakline != 0 && counterForBreakline != values.size()-1){
+        for (String elementInValues : values.values()) {
+            if (counterForBreakLine % 2 != 0 && counterForBreakLine != 0 && counterForBreakLine != values.size() - 1) {
                 convertedReturn += elementInValues + "\n";
             } else {
                 convertedReturn += elementInValues;
             }
-            counterForBreakline++;
+            counterForBreakLine++;
         }
         return convertedReturn;
     }
 
     /**
      * Function translate gets an identifier and translates it to the real Name from the CSV given
+     *
      * @param identifier is the Value which should be given from the System to translate
      * @return the String with the real name of the element
      */
-    private String translate(String identifier){
+    private String translate(String identifier) {
         String translated = "";
 
-        for(Event elementInEvents : events.values()){
-            if(identifier.equals("t_n$")) { //First Element needs to be set - Not able to change to standard format
+        for (Event elementInEvents : events.values()) {
+            if (identifier.equals("t_n$")) { //First Element needs to be set - Not able to change to standard format
                 return elementInEvents.description;
             }
 
-            if(identifier.equals(elementInEvents.getIdentifier())){
+            if (identifier.equals(elementInEvents.getIdentifier())) {
                 translated = elementInEvents.getDescription();
                 break;
             }
@@ -251,14 +260,15 @@ public class Storage {
 
     /**
      * Changes the value of a quarter of the day
+     *
      * @param value is the quarter from the value
      * @return the changed value for the quarter
      */
 
-    private String changeValueForQuarter(String value){
-        String first = "";
-        String second = "";
-        switch(value) {
+    private String changeValueForQuarter(String value) {
+        String first;
+        String second;
+        switch (value) {
             case "q1":
                 first = new StringBuilder().appendCodePoint(0x1F55B).toString();
                 second = new StringBuilder().appendCodePoint(0x1F555).toString();
@@ -282,10 +292,10 @@ public class Storage {
 
     /**
      * Changes temperature if its a false field like -91.0
+     *
      * @param value value from the list which needs to be translated
      * @return the changed value if its faulty
      */
-
     private String changeForTemperature(String value) {
         return value.length() <= 6 ?
                 "❔"
@@ -294,13 +304,13 @@ public class Storage {
     }
 
     /**
-     * Changes the precipation from 0.0 and 1.0 to sunny and rainy
+     * Changes the precipitation from 0.0 and 1.0 to sunny and rainy
+     *
      * @param value is from the list which needs to be translated
      * @return gives back rainy or sunny or ? for undefined values
      */
-
-    private String changeForPrecip(String value){
-        switch(value){
+    private String changeForPrecip(String value) {
+        switch (value) {
             case "0.0":
                 return "☀";
             case "1.0":
@@ -312,65 +322,18 @@ public class Storage {
 
     /**
      * getNode returns the Node which got selected and gives back the Information
+     *
      * @param nodeName nodeName is the Node selected from the RecycleView to be displayed
      * @return gives back the Node according to the name
      */
-
     public DisplayNode getNode(String nodeName) {
         DisplayNode node = new DisplayNode();
         for (DisplayNode nodeToDisplay : displayNodeMap.values()) {
             if (nodeToDisplay.getNodeName().equals(nodeName)) {
                 node = nodeToDisplay;
-            } else {
-                continue;
             }
         }
         return node;
-    }
-
-    /**
-     * getNextNode gives back the Node for the next page and the Information to it
-     * @param currentNode is the value where the node is currently at
-     * @return a DisplayNode which is selected - If the List is at the End the first element should be returned else the next element
-     */
-
-    public DisplayNode getNextNode(String currentNode) {
-        int index = 0;
-        for (int elementIndex = 0; elementIndex < firstRow.size(); elementIndex++) {
-            String first = firstRow.get(elementIndex);
-            if (currentNode.equals(firstRow.get(elementIndex))) {
-                index = elementIndex;
-                break;
-            }
-        }
-        if (index == firstRow.size()-1) {
-            index = 0;
-        } else {
-            index++;
-        }
-        return displayNodeMap.get(index);
-    }
-
-    /**
-     * getNextNode gives back the Node for the previous page and the Information to it
-     * @param currentNode is the value where the node is currently at
-     * @return a DisplayNode which is selected - If the List is at the Start the last element should be returned else the previous element
-     */
-
-    public DisplayNode getPreviousNode(String currentNode) {
-        int index = 0;
-        for (int elementIndex = 0; elementIndex < firstRow.size(); elementIndex++) {
-            if (currentNode.equals(firstRow.get(elementIndex))) {
-                index = elementIndex;
-                break;
-            }
-        }
-        if (index == 0) {
-            index = displayNodeMap.size()-1;
-        } else {
-            index--;
-        }
-        return displayNodeMap.get(index);
     }
 
     /**

@@ -45,14 +45,16 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
         String displayItem = dataFromMain.get(keyValueOfElement);
         csvHolder.displayTextView.setText(displayItem);
 
-        if(positionOfElement %2 == 0){
+        //Reset Background for even and odd numbers to get 2 colors
+        if (positionOfElement % 2 == 0) {
             csvHolder.displayTextView.setBackground(ContextCompat.getDrawable(mainContext, R.drawable.standard_button));
         }
 
-        if(positionOfElement %2 != 0){
+        if (positionOfElement % 2 != 0) {
             csvHolder.displayTextView.setBackground(ContextCompat.getDrawable(mainContext, R.drawable.standard_button_alternative));
         }
 
+        //Create listener for each element
         csvHolder.itemView.setOnClickListener(displayView -> {
             MainActivity.storageForData.setRunningNode(dataFromMain.get(positionOfElement));
             Intent goToNode = new Intent(mainContext, NodeActivity.class);
@@ -64,6 +66,7 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
     public int getItemCount() {
         return dataFromMain.size();
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView displayTextView;
 

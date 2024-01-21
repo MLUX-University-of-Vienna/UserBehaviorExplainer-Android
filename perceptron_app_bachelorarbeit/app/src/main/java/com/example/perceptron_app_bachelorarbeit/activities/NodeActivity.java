@@ -13,7 +13,6 @@ import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterNode;
 import com.example.perceptron_app_bachelorarbeit.javafiles.DisplayNode;
 import com.example.perceptron_app_bachelorarbeit.javafiles.Node;
-import com.example.perceptron_app_bachelorarbeit.javafiles.Storage;
 
 import java.util.HashMap;
 
@@ -22,11 +21,9 @@ import java.util.HashMap;
  */
 
 public class NodeActivity extends AppCompatActivity {
-
     private DisplayNode runningNode;
     private RecyclerView recyclerPoints;
     private Boolean allDataSet = true;
-
     private TextView pointInformation;
 
     @Override
@@ -64,32 +61,40 @@ public class NodeActivity extends AppCompatActivity {
     /**
      * goToToal opens the TotalNode Activity for a Node
      */
-    private void goToDescription(){
+    private void goToDescription() {
         Intent intent = new Intent(this, DescriptionActivity.class);
         startActivity(intent);
     }
 
-    private void allValuesOfNodeActive(){
+    /**
+     * allValuesOfNodeActive represents the selection of All data
+     */
+    private void allValuesOfNodeActive() {
         allDataSet = true;
         pointInformation.setText("All Values of Node ");
         fillAllNodeValues();
     }
-
+    /**
+     * allValuesOfNodeActive represents the selection of highest and lowest data
+     */
     private void topDataPointActive() {
         allDataSet = false;
         pointInformation.setText("Highest and Lowest Node Values");
         fillTopNodeValues();
     }
 
+    /**
+     * Fills the Recycler with the complete data of the Node
+     */
     private void fillAllNodeValues() {
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
-        for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
+        for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
             Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
-            String valueOfNode = "";
-            if(insertNode.getValue().length() <=4) {
+            String valueOfNode;
+            if (insertNode.getValue().length() <= 4) {
                 valueOfNode = insertNode.getValue();
             } else {
-                valueOfNode = insertNode.getValue().substring(0,5);
+                valueOfNode = insertNode.getValue().substring(0, 5);
             }
 
             String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
@@ -100,16 +105,18 @@ public class NodeActivity extends AppCompatActivity {
         recyclerPoints.setAdapter(adapterForRecycle);
         recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
     }
-
+    /**
+     * Fills the Recycler with the highest and lowest data of the node
+     */
     private void fillTopNodeValues() {
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
-        for(int indexOfNodes = 0; indexOfNodes < runningNode.getBestNodes().size(); indexOfNodes++){
+        for (int indexOfNodes = 0; indexOfNodes < runningNode.getBestNodes().size(); indexOfNodes++) {
             Node insertNode = runningNode.getBestNodes().get(indexOfNodes);
-            String valueOfNode = "";
-            if(insertNode.getValue().length() <=4) {
+            String valueOfNode;
+            if (insertNode.getValue().length() <= 4) {
                 valueOfNode = insertNode.getValue();
             } else {
-                valueOfNode = insertNode.getValue().substring(0,5);
+                valueOfNode = insertNode.getValue().substring(0, 5);
             }
             String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
             valuesOfNode.put(indexOfNodes, value);
@@ -122,17 +129,21 @@ public class NodeActivity extends AppCompatActivity {
         pointInformation.setText("Highest and Lowest of Node");
     }
 
+    /**
+     * Fills the Recycler with the values for weather in the data
+     */
     private void fillWeatherNodeValues() {
-        if(allDataSet){
+        //if allDataSet is true we get the complete data of the node with weather data. Else we only get the highest and lowest
+        if (allDataSet) {
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
+            for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
-                if(insertNode.getEvent().contains("p_n")){
-                    String valueOfNode = "";
-                    if(insertNode.getValue().length() <=4) {
+                if (insertNode.getEvent().contains("p_n")) {
+                    String valueOfNode;
+                    if (insertNode.getValue().length() <= 4) {
                         valueOfNode = insertNode.getValue();
                     } else {
-                        valueOfNode = insertNode.getValue().substring(0,5);
+                        valueOfNode = insertNode.getValue().substring(0, 5);
                     }
 
                     String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
@@ -147,7 +158,7 @@ public class NodeActivity extends AppCompatActivity {
 
         } else {
             HashMap<Integer, Node> insertWheater = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
+            for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
                 if (insertNode.getEvent().contains("p_n")) {
                     insertWheater.put(indexOfNodes, insertNode);
@@ -158,13 +169,13 @@ public class NodeActivity extends AppCompatActivity {
             topAndWorstWeather = MainActivity.storageForData.getBestAndWorst(topAndWorstWeather);
 
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < topAndWorstWeather.getBestNodes().size(); indexOfNodes++){
+            for (int indexOfNodes = 0; indexOfNodes < topAndWorstWeather.getBestNodes().size(); indexOfNodes++) {
                 Node insertNode = topAndWorstWeather.getBestNodes().get(indexOfNodes);
-                String valueOfNode = "";
-                if(insertNode.getValue().length() <=4) {
+                String valueOfNode;
+                if (insertNode.getValue().length() <= 4) {
                     valueOfNode = insertNode.getValue();
                 } else {
-                    valueOfNode = insertNode.getValue().substring(0,5);
+                    valueOfNode = insertNode.getValue().substring(0, 5);
                 }
                 String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                 valuesOfNode.put(indexOfNodes, value);
@@ -176,20 +187,23 @@ public class NodeActivity extends AppCompatActivity {
             pointInformation.setText("Highest and Lowest Values for Weather");
         }
     }
-
+    /**
+     * Fills the Recycler with the values for time in the data
+     */
     private void fillTimeNodeValues() {
-        if(allDataSet){
+        //if allDataSet is true we get the complete data of the node with time data. Else we only get the highest and lowest
+        if (allDataSet) {
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
+            for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
 
-                if(insertNode.getEvent().contains("tq_n")){
+                if (insertNode.getEvent().contains("tq_n")) {
 
-                    String valueOfNode = "";
-                    if(insertNode.getValue().length() <=4) {
+                    String valueOfNode;
+                    if (insertNode.getValue().length() <= 4) {
                         valueOfNode = insertNode.getValue();
                     } else {
-                        valueOfNode = insertNode.getValue().substring(0,5);
+                        valueOfNode = insertNode.getValue().substring(0, 5);
                     }
                     String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                     valuesOfNode.put(indexOfNodes, value);
@@ -202,7 +216,7 @@ public class NodeActivity extends AppCompatActivity {
             pointInformation.setText("All Values of Node for Time");
         } else {
             HashMap<Integer, Node> insertTime = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
+            for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
                 if (insertNode.getEvent().contains("tq_n")) {
                     insertTime.put(indexOfNodes, insertNode);
@@ -213,13 +227,13 @@ public class NodeActivity extends AppCompatActivity {
             topAndWorstTime = MainActivity.storageForData.getBestAndWorst(topAndWorstTime);
 
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < topAndWorstTime.getBestNodes().size(); indexOfNodes++){
+            for (int indexOfNodes = 0; indexOfNodes < topAndWorstTime.getBestNodes().size(); indexOfNodes++) {
                 Node insertNode = topAndWorstTime.getBestNodes().get(indexOfNodes);
-                String valueOfNode = "";
-                if(insertNode.getValue().length() <=4) {
+                String valueOfNode;
+                if (insertNode.getValue().length() <= 4) {
                     valueOfNode = insertNode.getValue();
                 } else {
-                    valueOfNode = insertNode.getValue().substring(0,5);
+                    valueOfNode = insertNode.getValue().substring(0, 5);
                 }
                 String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                 valuesOfNode.put(indexOfNodes, value);
@@ -231,19 +245,22 @@ public class NodeActivity extends AppCompatActivity {
             pointInformation.setText("Highest and Lowest Values for Time");
         }
     }
-
+    /**
+     * Fills the Recycler with the values for temperature in the data
+     */
     private void fillTemperatureNodeValues() {
-        if(allDataSet){
+        //if allDataSet is true we get the complete data of the node with temperature data. Else we only get the highest and lowest
+        if (allDataSet) {
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++){
+            for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
 
-                if(insertNode.getEvent().contains("t_n")){
-                    String valueOfNode = "";
-                    if(insertNode.getValue().length() <=4) {
+                if (insertNode.getEvent().contains("t_n")) {
+                    String valueOfNode;
+                    if (insertNode.getValue().length() <= 4) {
                         valueOfNode = insertNode.getValue();
                     } else {
-                        valueOfNode = insertNode.getValue().substring(0,5);
+                        valueOfNode = insertNode.getValue().substring(0, 5);
                     }
 
                     String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
@@ -257,7 +274,7 @@ public class NodeActivity extends AppCompatActivity {
             pointInformation.setText("All Values of Node for Temperature");
         } else {
             HashMap<Integer, Node> insertTemperature = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
+            for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
                 if (insertNode.getEvent().contains("t_n")) {
                     insertTemperature.put(indexOfNodes, insertNode);
@@ -268,13 +285,13 @@ public class NodeActivity extends AppCompatActivity {
             topAndWorstTemperature = MainActivity.storageForData.getBestAndWorst(topAndWorstTemperature);
 
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
-            for(int indexOfNodes = 0; indexOfNodes < topAndWorstTemperature.getBestNodes().size(); indexOfNodes++){
+            for (int indexOfNodes = 0; indexOfNodes < topAndWorstTemperature.getBestNodes().size(); indexOfNodes++) {
                 Node insertNode = topAndWorstTemperature.getBestNodes().get(indexOfNodes);
-                String valueOfNode = "";
-                if(insertNode.getValue().length() <=4) {
+                String valueOfNode;
+                if (insertNode.getValue().length() <= 4) {
                     valueOfNode = insertNode.getValue();
                 } else {
-                    valueOfNode = insertNode.getValue().substring(0,5);
+                    valueOfNode = insertNode.getValue().substring(0, 5);
                 }
                 String value = "Perceptron Value: " + valueOfNode + "\n" + MainActivity.storageForData.convertEventPrefixForNode(insertNode.getEvent());
                 valuesOfNode.put(indexOfNodes, value);

@@ -52,6 +52,7 @@ public class RecycleViewAdapterElementDescription extends RecyclerView.Adapter<R
     public int getItemCount() {
         return dataFromDescription.size();
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView displayTextView;
 

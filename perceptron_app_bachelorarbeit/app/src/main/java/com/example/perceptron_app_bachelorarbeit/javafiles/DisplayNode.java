@@ -33,7 +33,6 @@ public class DisplayNode {
     }
 
     public DisplayNode() {
-
     }
 
     public String getNodeName() {
