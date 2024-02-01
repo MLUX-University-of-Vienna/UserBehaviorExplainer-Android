@@ -112,15 +112,17 @@ public class Storage {
 
             HashMap<Integer, Node> bestNodes = new HashMap<>();
 
-            int counter = 0;
+            int counter = 4;
             for (Node elementHighest : highest) {
                 bestNodes.put(counter, elementHighest);
-                counter++;
+                counter--;
             }
+
+            counter = 9;
 
             for (Node elementLowest : lowest) {
                 bestNodes.put(counter, elementLowest);
-                counter++;
+                counter--;
             }
 
             DisplayNode insert = new DisplayNode(nodeElement.getNodeName(), nodeElement.getNodesComplete(), bestNodes);
@@ -155,15 +157,17 @@ public class Storage {
 
         HashMap<Integer, Node> bestNodes = new HashMap<>();
 
-        int counter = 0;
+        int counter = 4;
         for (Node elementHighest : highest) {
             bestNodes.put(counter, elementHighest);
-            counter++;
+            counter--;
         }
+
+        counter = 9;
 
         for (Node elementLowest : lowest) {
             bestNodes.put(counter, elementLowest);
-            counter++;
+            counter--;
         }
 
         return new DisplayNode(bestNodes);
@@ -177,7 +181,6 @@ public class Storage {
      */
 
     public String convertEventPrefixForNode(String convert) {
-        System.out.println(convert);
         String convertedReturn = "";
         HashMap<Integer, String> values = new HashMap<>();
         String running = "";
@@ -226,7 +229,7 @@ public class Storage {
 
         for (String elementInValues : values.values()) {
             if (counterForBreakLine % 2 != 0 && counterForBreakLine != 0 && counterForBreakLine != values.size() - 1) {
-                convertedReturn += elementInValues + "\n";
+                convertedReturn += elementInValues + " \n";
             } else {
                 convertedReturn += elementInValues;
             }
@@ -266,25 +269,15 @@ public class Storage {
      */
 
     private String changeValueForQuarter(String value) {
-        String first;
-        String second;
         switch (value) {
             case "q1":
-                first = new StringBuilder().appendCodePoint(0x1F55B).toString();
-                second = new StringBuilder().appendCodePoint(0x1F555).toString();
-                return first + " - " + second;
+                return new StringBuilder().appendCodePoint(0x1F55B).toString() + "00:00-06:00";
             case "q2":
-                first = new StringBuilder().appendCodePoint(0x1F555).toString();
-                second = new StringBuilder().appendCodePoint(0x1F55B).toString();
-                return first + " - " + second;
+                return new StringBuilder().appendCodePoint(0x1F55B).toString() + "06:00-12:00";
             case "q3":
-                first = new StringBuilder().appendCodePoint(0x1F55B).toString();
-                second = new StringBuilder().appendCodePoint(0x1F555).toString();
-                return first + " - " + second;
+                return new StringBuilder().appendCodePoint(0x1F55B).toString() + "12:00-18:00";
             case "q4":
-                first = new StringBuilder().appendCodePoint(0x1F555).toString();
-                second = new StringBuilder().appendCodePoint(0x1F55B).toString();
-                return first + " - " + second;
+                return new StringBuilder().appendCodePoint(0x1F55B).toString() + "18:00-24:00";
             default:
                 return "❔";
         }

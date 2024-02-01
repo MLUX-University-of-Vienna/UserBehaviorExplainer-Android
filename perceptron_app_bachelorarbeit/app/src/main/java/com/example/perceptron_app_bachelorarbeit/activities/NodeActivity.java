@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,20 @@ public class NodeActivity extends AppCompatActivity {
     private DisplayNode runningNode;
     private RecyclerView recyclerPoints;
     private Boolean allDataSet = true;
-    private TextView pointInformation;
+
+    Button goToDescription;
+
+    Button allValuesOfNode;
+
+    Button topDataPoint;
+
+    Button weatherData;
+
+    Button timeData;
+
+    Button temperatureData;
+
+    Button allData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +49,30 @@ public class NodeActivity extends AppCompatActivity {
         System.out.println(runningNode.getNodeName());
         textViewPoint.setText("Node - " + runningNode.getNodeName());
         recyclerPoints = findViewById(R.id.recyclerHighestPoint);
-        pointInformation = findViewById(R.id.pointInformation);
-        pointInformation.setText("No Category selected - Please select one");
         //Buttons and Listeners
 
-        Button goToDescription = findViewById(R.id.Icondescription);
+        goToDescription = findViewById(R.id.Icondescription);
         goToDescription.setOnClickListener(view -> goToDescription());
 
-        Button allValuesOfNode = findViewById(R.id.allDataPoint);
+        allValuesOfNode = findViewById(R.id.allDataPoint);
         allValuesOfNode.setOnClickListener(view -> allValuesOfNodeActive());
 
-        Button topDataPoint = findViewById(R.id.topDataPoint);
+        topDataPoint = findViewById(R.id.topDataPoint);
         topDataPoint.setOnClickListener(view -> topDataPointActive());
 
-        Button weatherData = findViewById(R.id.weatherData);
+        weatherData = findViewById(R.id.weatherData);
         weatherData.setOnClickListener(view -> fillWeatherNodeValues());
 
-        Button timeData = findViewById(R.id.timeData);
+        timeData = findViewById(R.id.timeData);
         timeData.setOnClickListener(view -> fillTimeNodeValues());
 
-        Button temperatureData = findViewById(R.id.temperatureData);
+        temperatureData = findViewById(R.id.temperatureData);
         temperatureData.setOnClickListener(view -> fillTemperatureNodeValues());
+
+        allData = findViewById(R.id.allData);
+        allData.setOnClickListener(view -> allDataFill());
+
+        topDataPointActive();
     }
 
     /**
@@ -66,12 +83,29 @@ public class NodeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void resetButtonColors(){
+        temperatureData.setBackgroundResource(R.drawable.standard_button);
+        timeData.setBackgroundResource(R.drawable.standard_button);
+        weatherData.setBackgroundResource(R.drawable.standard_button);
+        topDataPoint.setBackgroundResource(R.drawable.standard_button);
+        allValuesOfNode.setBackgroundResource(R.drawable.standard_button);
+        allData.setBackgroundResource(R.drawable.standard_button);
+    }
+
+    private void allDataFill() {
+        allData.setBackgroundResource(R.drawable.standard_button_alternative_2);
+        if(allDataSet) {
+            fillAllNodeValues();
+        } else {
+            fillTopNodeValues();
+        }
+    }
+
     /**
      * allValuesOfNodeActive represents the selection of All data
      */
     private void allValuesOfNodeActive() {
         allDataSet = true;
-        pointInformation.setText("All Values of Node ");
         fillAllNodeValues();
     }
     /**
@@ -79,7 +113,6 @@ public class NodeActivity extends AppCompatActivity {
      */
     private void topDataPointActive() {
         allDataSet = false;
-        pointInformation.setText("Highest and Lowest Node Values");
         fillTopNodeValues();
     }
 
@@ -87,6 +120,9 @@ public class NodeActivity extends AppCompatActivity {
      * Fills the Recycler with the complete data of the Node
      */
     private void fillAllNodeValues() {
+        resetButtonColors();
+        allValuesOfNode.setBackgroundResource(R.drawable.standard_button_alternative_2);
+        allData.setBackgroundResource(R.drawable.standard_button_alternative_2);
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
         for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
             Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -109,6 +145,9 @@ public class NodeActivity extends AppCompatActivity {
      * Fills the Recycler with the highest and lowest data of the node
      */
     private void fillTopNodeValues() {
+        resetButtonColors();
+        topDataPoint.setBackgroundResource(R.drawable.standard_button_alternative_2);
+        allData.setBackgroundResource(R.drawable.standard_button_alternative_2);
         HashMap<Integer, String> valuesOfNode = new HashMap<>();
         for (int indexOfNodes = 0; indexOfNodes < runningNode.getBestNodes().size(); indexOfNodes++) {
             Node insertNode = runningNode.getBestNodes().get(indexOfNodes);
@@ -125,16 +164,17 @@ public class NodeActivity extends AppCompatActivity {
         RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
         recyclerPoints.setAdapter(adapterForRecycle);
         recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
-
-        pointInformation.setText("Highest and Lowest of Node");
     }
 
     /**
      * Fills the Recycler with the values for weather in the data
      */
     private void fillWeatherNodeValues() {
+        resetButtonColors();
         //if allDataSet is true we get the complete data of the node with weather data. Else we only get the highest and lowest
         if (allDataSet) {
+            allValuesOfNode.setBackgroundResource(R.drawable.standard_button_alternative_2);
+            weatherData.setBackgroundResource(R.drawable.standard_button_alternative_2);
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
             for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -154,9 +194,10 @@ public class NodeActivity extends AppCompatActivity {
             RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
             recyclerPoints.setAdapter(adapterForRecycle);
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
-            pointInformation.setText("All Values of Node for Weather");
 
         } else {
+            topDataPoint.setBackgroundResource(R.drawable.standard_button_alternative_2);
+            weatherData.setBackgroundResource(R.drawable.standard_button_alternative_2);
             HashMap<Integer, Node> insertWheater = new HashMap<>();
             for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -183,16 +224,17 @@ public class NodeActivity extends AppCompatActivity {
             RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
             recyclerPoints.setAdapter(adapterForRecycle);
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
-
-            pointInformation.setText("Highest and Lowest Values for Weather");
         }
     }
     /**
      * Fills the Recycler with the values for time in the data
      */
     private void fillTimeNodeValues() {
+        resetButtonColors();
         //if allDataSet is true we get the complete data of the node with time data. Else we only get the highest and lowest
         if (allDataSet) {
+            allValuesOfNode.setBackgroundResource(R.drawable.standard_button_alternative_2);
+            timeData.setBackgroundResource(R.drawable.standard_button_alternative_2);
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
             for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -213,8 +255,9 @@ public class NodeActivity extends AppCompatActivity {
             RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
             recyclerPoints.setAdapter(adapterForRecycle);
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
-            pointInformation.setText("All Values of Node for Time");
         } else {
+            topDataPoint.setBackgroundResource(R.drawable.standard_button_alternative_2);
+            timeData.setBackgroundResource(R.drawable.standard_button_alternative_2);
             HashMap<Integer, Node> insertTime = new HashMap<>();
             for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -242,15 +285,17 @@ public class NodeActivity extends AppCompatActivity {
             RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
             recyclerPoints.setAdapter(adapterForRecycle);
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
-            pointInformation.setText("Highest and Lowest Values for Time");
         }
     }
     /**
      * Fills the Recycler with the values for temperature in the data
      */
     private void fillTemperatureNodeValues() {
+        resetButtonColors();
         //if allDataSet is true we get the complete data of the node with temperature data. Else we only get the highest and lowest
         if (allDataSet) {
+            allValuesOfNode.setBackgroundResource(R.drawable.standard_button_alternative_2);
+            temperatureData.setBackgroundResource(R.drawable.standard_button_alternative_2);
             HashMap<Integer, String> valuesOfNode = new HashMap<>();
             for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -271,8 +316,9 @@ public class NodeActivity extends AppCompatActivity {
             RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
             recyclerPoints.setAdapter(adapterForRecycle);
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
-            pointInformation.setText("All Values of Node for Temperature");
         } else {
+            topDataPoint.setBackgroundResource(R.drawable.standard_button_alternative_2);
+            temperatureData.setBackgroundResource(R.drawable.standard_button_alternative_2);
             HashMap<Integer, Node> insertTemperature = new HashMap<>();
             for (int indexOfNodes = 0; indexOfNodes < runningNode.getNodesComplete().size(); indexOfNodes++) {
                 Node insertNode = runningNode.getNodesComplete().get(indexOfNodes);
@@ -300,8 +346,6 @@ public class NodeActivity extends AppCompatActivity {
             RecycleViewAdapterNode adapterForRecycle = new RecycleViewAdapterNode(this, valuesOfNode);
             recyclerPoints.setAdapter(adapterForRecycle);
             recyclerPoints.setLayoutManager(new LinearLayoutManager(this));
-
-            pointInformation.setText("Highest and Lowest Values for Temperature");
         }
     }
 }

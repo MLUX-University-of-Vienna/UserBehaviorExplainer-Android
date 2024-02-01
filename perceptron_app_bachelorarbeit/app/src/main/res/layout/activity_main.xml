@@ -7,20 +7,6 @@
     tools:context=".activities.MainActivity">
 
     <Button
-        android:id="@+id/search_main"
-        android:layout_width="134dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/standard_button"
-        android:padding="30px"
-        android:text="Search"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarMainPage"
-        tools:ignore="MissingConstraints" />
-
-    <Button
         android:id="@+id/import_csv_main"
         android:layout_width="400px"
         android:layout_height="wrap_content"
@@ -86,14 +72,15 @@
 
     <EditText
         android:id="@+id/editTextSearch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="185dp"
+        android:layout_height="43dp"
         android:hint="Search for Value"
         android:inputType="text"
         android:padding="10dp"
+        android:textAlignment="center"
         android:textColorHint="#808080"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewDescription"
-        app:layout_constraintEnd_toStartOf="@+id/search_main"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarMainPage" />
 

@@ -45,10 +45,7 @@ public class MainActivity extends AppCompatActivity {
         inputCSV.setOnClickListener(view -> filePicker());
         TextView startingPage = findViewById(R.id.mainPageInformation);
         recyclerViewMainActivity = findViewById(R.id.recyclerViewDescription);
-        Button searchView = findViewById(R.id.search_main);
-        searchView.setOnClickListener(view -> onClickSearch());
         searchValue = findViewById(R.id.editTextSearch);
-
 
          //Needed for the search function --> if element gets inserted it updates the recycler
 

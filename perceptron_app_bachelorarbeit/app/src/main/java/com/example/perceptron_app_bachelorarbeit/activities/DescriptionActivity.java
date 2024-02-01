@@ -43,7 +43,7 @@ public class DescriptionActivity extends AppCompatActivity {
         description.put(5, "↕️ ... current activity");
         description.put(6, "☀ ... precipitation good (sunny) for activity");
         description.put(7, "☔ ... precipitation bad (rainy) for activity");
-        description.put(8, new StringBuilder().appendCodePoint(0x1F55B) + " ... different time quarters");
+        description.put(8, new StringBuilder().appendCodePoint(0x1F55B) + " 00:00-06:00 " + " ... different time quarters");
         description.put(9, "❔ ... value not given or not valid");
 
         RecycleViewAdapterElementDescription adapterForRecycle = new RecycleViewAdapterElementDescription(this, description);
