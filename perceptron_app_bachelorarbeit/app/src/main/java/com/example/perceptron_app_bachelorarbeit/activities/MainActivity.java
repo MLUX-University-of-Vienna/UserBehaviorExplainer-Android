@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterMain;
-import com.example.perceptron_app_bachelorarbeit.javafiles.Event;
+import com.example.perceptron_app_bachelorarbeit.storagefiles.Event;
 import com.example.perceptron_app_bachelorarbeit.R;
-import com.example.perceptron_app_bachelorarbeit.javafiles.Storage;
+import com.example.perceptron_app_bachelorarbeit.storagefiles.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;

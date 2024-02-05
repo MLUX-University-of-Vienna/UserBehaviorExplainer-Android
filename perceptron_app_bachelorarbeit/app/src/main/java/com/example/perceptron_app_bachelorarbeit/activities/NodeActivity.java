@@ -6,14 +6,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterNode;
-import com.example.perceptron_app_bachelorarbeit.javafiles.DisplayNode;
-import com.example.perceptron_app_bachelorarbeit.javafiles.Node;
+import com.example.perceptron_app_bachelorarbeit.storagefiles.DisplayNode;
+import com.example.perceptron_app_bachelorarbeit.storagefiles.Node;
 
 import java.util.HashMap;
 

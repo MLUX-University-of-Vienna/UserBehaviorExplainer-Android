@@ -1,4 +1,4 @@
-package com.example.perceptron_app_bachelorarbeit.javafiles;
+package com.example.perceptron_app_bachelorarbeit.storagefiles;
 
 /**
  * Event is used to make a Event with an identifier and a description which was given by the Professor

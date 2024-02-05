@@ -1,4 +1,4 @@
-package com.example.perceptron_app_bachelorarbeit.javafiles;
+package com.example.perceptron_app_bachelorarbeit.storagefiles;
 
 import java.util.HashMap;
 
