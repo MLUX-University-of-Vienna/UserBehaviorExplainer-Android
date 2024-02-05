@@ -56,7 +56,7 @@ public class RecycleViewAdapterMain extends RecyclerView.Adapter<RecycleViewAdap
 
         //Create listener for each element
         csvHolder.itemView.setOnClickListener(displayView -> {
-            MainActivity.storageForData.setRunningNode(dataFromMain.get(positionOfElement));
+            MainActivity.storageForData.setRunningNode(displayItem);
             Intent goToNode = new Intent(mainContext, NodeActivity.class);
             mainContext.startActivity(goToNode);
         });
