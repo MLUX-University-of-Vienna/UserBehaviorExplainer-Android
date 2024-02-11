@@ -223,7 +223,7 @@ public class Storage {
             valueToCheck = changeValueForQuarter(valueToCheck);
         }
 
-        values.put(counterForValues, changeValueForQuarter(valueToCheck));
+        values.put(counterForValues, valueToCheck);
 
         int counterForBreakLine = 0;
 
@@ -279,7 +279,7 @@ public class Storage {
             case "q4":
                 return new StringBuilder().appendCodePoint(0x1F55B).toString() + "18:00-24:00";
             default:
-                return "❔";
+                return new StringBuilder().appendCodePoint(0x1F55B).toString() + " ❔ ";
         }
     }
 
@@ -291,7 +291,7 @@ public class Storage {
      */
     private String changeForTemperature(String value) {
         return value.length() <= 6 ?
-                "❔"
+                "\uD83C\uDF21 ❔"
                 :
                 value + "° celcius";
     }
@@ -309,7 +309,7 @@ public class Storage {
             case "1.0":
                 return "☔";
             default:
-                return "❔";
+                return " ☀/☔ ❔";
         }
     }
 
