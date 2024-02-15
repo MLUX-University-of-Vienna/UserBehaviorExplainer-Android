@@ -25,8 +25,12 @@
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/drawable/ic_icons8_back_50.xml" value="0.3828125" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/drawable/standard_button.xml" value="0.3828125" />
+        <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/drawable/standard_button_alternative.xml" value="0.3828125" />
+        <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/drawable/standard_button_alternative_2.xml" value="0.3828125" />
+        <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/drawable/standard_button_alternative_3.xml" value="0.3828125" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/drawable/uni_icon.xml" value="0.3828125" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/activity_csv.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/activity_description.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/activity_node.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/activity_perceptron.xml" value="0.36666666666666664" />
@@ -35,10 +39,11 @@
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/activity_total_point.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/list_item_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/layout/list_item_layout_point.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Megaport/Bachelorarbeit/bachelorarbeit-nicolas-mattersdorfer/perceptron_app_bachelorarbeit/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21927083333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

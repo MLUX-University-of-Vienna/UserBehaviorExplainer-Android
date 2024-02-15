@@ -1,5 +1,7 @@
 package com.example.perceptron_app_bachelorarbeit.storagefiles;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,12 +45,12 @@ public class Storage {
      * setNames gets the Values of the Events and Nodes and saves them in firstRow
      */
     public void setNames() {
-        HashMap<Integer, String> valuesOfFirstRow = csvData.get(0);
-        int counterAdding = 0;
-        for (int counterNames = 1; counterNames < valuesOfFirstRow.size(); counterNames++) {
-            firstRow.put(counterAdding, valuesOfFirstRow.get(counterNames));
-            counterAdding++;
-        }
+            HashMap<Integer, String> valuesOfFirstRow = csvData.get(0);
+            int counterAdding = 0;
+            for (int counterNames = 1; counterNames < valuesOfFirstRow.size(); counterNames++) {
+                firstRow.put(counterAdding, valuesOfFirstRow.get(counterNames));
+                counterAdding++;
+            }
     }
 
     /**
@@ -59,7 +61,6 @@ public class Storage {
 
         HashMap<Integer, DisplayNode> insertMap = new HashMap<>();
         for (int counterRows = 0; counterRows < firstRow.size(); counterRows++) {
-            System.out.println(firstRow.get(counterRows));
             DisplayNode insert = new DisplayNode(firstRow.get(counterRows));
             insertMap.put(counterRows, insert);
         }
@@ -69,6 +70,11 @@ public class Storage {
         for (int counterCSV = 1; counterCSV < csvData.size(); counterCSV++) {
             HashMap<Integer, String> element = csvData.get(counterCSV);
             String event = element.get(0);
+            if(event.contains("b$1")){
+                continue;
+            }
+
+            event = sortElement(event);
             int counterForMap = 0;
 
             for (int counterElement = 1; counterElement < element.size(); counterElement++) {
@@ -85,6 +91,93 @@ public class Storage {
 
         displayNodeMap = insertMap;
         setBestAndWorst();
+    }
+
+
+    public String sortElement(String event){
+        System.out.println("event " + event);
+        String changed = "";
+        HashMap<Integer, String> current = new HashMap<>();
+        HashMap<Integer, String> prev = new HashMap<>();
+        HashMap<Integer, String> prevPrev = new HashMap<>();
+        HashMap<Integer, String> next = new HashMap<>();
+        HashMap<Integer, String> nextNext = new HashMap<>();
+        Integer indexCurrent = 0;
+        Integer indexPrev = 0;
+        Integer indexPrevPrev = 0;
+        Integer indexNext = 0;
+        Integer indexNextNext = 0;
+
+        String running = "";
+
+        for (int elementInString = 0; elementInString < event.length(); elementInString++) {
+            running = running + event.charAt(elementInString);
+
+            if (running.contains("-+-")) {
+                if (running.contains("+1$")) {
+                    next.put(indexNext, running);
+                    indexNext += 1;
+                } else if (running.contains("+2$")) {
+                    nextNext.put(indexNextNext, running);
+                    indexNextNext += 1;
+                } else if (running.contains("-1$")) {
+                    prev.put(indexPrev, running);
+                    indexPrev += 1;
+                } else if (running.contains("-2$")) {
+                    prevPrev.put(indexPrevPrev, running);
+                    indexPrevPrev += 1;
+                } else {
+                    current.put(indexCurrent, running);
+                    indexCurrent += 1;
+                }
+                running = "";
+            }
+
+            if(elementInString == event.length()-1) {
+                    if(running.contains("+1$")) {
+                        next.put(indexNext,running + "-+-");
+                        indexNext += 1;
+                    } else if (running.contains("+2$")){
+                        nextNext.put(indexNextNext,running + "-+-");
+                        indexNextNext += 1;
+                    } else if (running.contains("-1$")){
+                        prev.put(indexPrev,running + "-+-");
+                        indexPrev += 1;
+                    } else if (running.contains("-2$")){
+                        prevPrev.put(indexPrevPrev,running + "-+-");
+                        indexPrevPrev += 1;
+                    } else {
+                        current.put(indexCurrent, running + "-+-");
+                        indexCurrent += 1;
+                    }
+                    running = "";
+            }
+        }
+        StringBuilder returnValue = new StringBuilder();
+
+        for(String element : current.values()){
+            returnValue.append(element);
+        }
+
+        for(String element : next.values()){
+            returnValue.append(element);
+        }
+
+        for(String element : nextNext.values()){
+            returnValue.append(element);
+        }
+
+        for(String element : prev.values()){
+            returnValue.append(element);
+        }
+
+        for(String element : prevPrev.values()){
+            returnValue.append(element);
+        }
+
+        System.out.println(returnValue);
+
+        return returnValue.toString();
     }
 
     /**

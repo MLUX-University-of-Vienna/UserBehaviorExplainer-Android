@@ -8,17 +8,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDescription"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="450dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/backToNode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBarPoint"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolBarPoint" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarPoint"
@@ -49,7 +48,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/standard_button"
+        android:background="@drawable/standard_button_alternative_3"
         android:padding="10dp"
         android:text="Back to Node"
         android:textColor="#FFFFFF"

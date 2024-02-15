@@ -4,18 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterMain;
 import com.example.perceptron_app_bachelorarbeit.storagefiles.Event;
 import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.storagefiles.Storage;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Mainactivity for the whole System
@@ -31,7 +36,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUESTCODE = 1;
     private HashMap<Integer, HashMap<Integer, String>> csvData = new HashMap<>();
-    public static final Storage storageForData = new Storage();
+    public static Storage storageForData = new Storage();
     private RecyclerView recyclerViewMainActivity;
     private HashMap<Integer, Event> eventDataFromCSV = new HashMap<>();
     private EditText searchValue;
@@ -111,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCodeForCSVData, resultCodeForCsvData, dataForCSVRequest);
 
         if (requestCodeForCSVData == REQUESTCODE && resultCodeForCsvData == RESULT_OK) {
+            storageForData = new Storage();
+            csvData = new HashMap<>();
+            eventDataFromCSV = new HashMap<>();
+
             if (dataForCSVRequest.getData() != null) {
                 try {
                     InputStream csvIn = super.getContentResolver().openInputStream(dataForCSVRequest.getData());
@@ -134,8 +143,9 @@ public class MainActivity extends AppCompatActivity {
 
                     csvIn.close();
                     readerCsvIn.close();
-                } catch (IOException streamError) {
-                    streamError.printStackTrace();
+                } catch (Exception streamError) {
+                    Toast exceptionToast = Toast.makeText(getApplicationContext(),"Wrong CSV Format",Toast.LENGTH_SHORT);
+                    exceptionToast.show();
                 }
 
                  //Gets the definitions of Events for the Activity to translate later
@@ -158,18 +168,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                     csvIn.close();
                     readerCsvIn.close();
-                } catch (IOException streamError) {
-                    streamError.printStackTrace();
+                } catch (Exception streamError) {
+                    Toast exceptionToast = Toast.makeText(getApplicationContext(),"Wrong CSV Format",Toast.LENGTH_SHORT);
+                    exceptionToast.show();
                 }
 
-                storageForData.setCsvData(csvData);
-                storageForData.setEvents(eventDataFromCSV);
+                try {
+                    storageForData.setCsvData(csvData);
+                    storageForData.setEvents(eventDataFromCSV);
 
-                TextView startingPage = findViewById(R.id.mainPageInformation);
-                startingPage.setText("CSV Selected");
+                    TextView startingPage = findViewById(R.id.mainPageInformation);
+                    startingPage.setText("CSV Selected");
 
-                storageForData.setNames();
-                storageForData.setEventsAndValues();
+                    storageForData.setNames();
+                    storageForData.setEventsAndValues();
+
+                } catch (Exception streamError) {
+                    Toast exceptionToast = Toast.makeText(getApplicationContext(),"Wrong CSV Format",Toast.LENGTH_SHORT);
+                    exceptionToast.show();
+                }
+
                 Recycle();
             }
         }

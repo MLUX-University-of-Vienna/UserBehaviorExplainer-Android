@@ -40,12 +40,6 @@ public class RecycleViewAdapterElementDescription extends RecyclerView.Adapter<R
         Integer keyValueOfElement = (Integer) dataFromDescription.keySet().toArray()[positionOfElement];
         String displayItem = dataFromDescription.get(keyValueOfElement);
         csvHolder.displayTextView.setText(displayItem);
-        csvHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View displayView) {
-                System.out.println("Clicked but not needed");
-            }
-        });
     }
 
     @Override

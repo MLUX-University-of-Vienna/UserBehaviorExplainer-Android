@@ -83,12 +83,12 @@ public class NodeActivity extends AppCompatActivity {
     }
 
     private void resetButtonColors(){
-        temperatureData.setBackgroundResource(R.drawable.standard_button);
-        timeData.setBackgroundResource(R.drawable.standard_button);
-        weatherData.setBackgroundResource(R.drawable.standard_button);
-        topDataPoint.setBackgroundResource(R.drawable.standard_button);
-        allValuesOfNode.setBackgroundResource(R.drawable.standard_button);
-        allData.setBackgroundResource(R.drawable.standard_button);
+        temperatureData.setBackgroundResource(R.drawable.standard_button_alternative_3);
+        timeData.setBackgroundResource(R.drawable.standard_button_alternative_3);
+        weatherData.setBackgroundResource(R.drawable.standard_button_alternative_3);
+        topDataPoint.setBackgroundResource(R.drawable.standard_button_alternative_3);
+        allValuesOfNode.setBackgroundResource(R.drawable.standard_button_alternative_3);
+        allData.setBackgroundResource(R.drawable.standard_button_alternative_3);
     }
 
     private void allDataFill() {
