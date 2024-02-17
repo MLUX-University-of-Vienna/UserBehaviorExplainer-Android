@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
         TextView startingPage = findViewById(R.id.mainPageInformation);
         recyclerViewMainActivity = findViewById(R.id.recyclerViewDescription);
         searchValue = findViewById(R.id.editTextSearch);
-
-         //Needed for the search function --> if element gets inserted it updates the recycler
+        //Needed for the search function --> if element gets inserted it updates the recycler
 
         searchValue.addTextChangedListener(new TextWatcher() {
             @Override

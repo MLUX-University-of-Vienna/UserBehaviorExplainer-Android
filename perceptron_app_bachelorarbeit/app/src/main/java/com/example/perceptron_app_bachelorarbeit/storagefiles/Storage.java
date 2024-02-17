@@ -95,7 +95,6 @@ public class Storage {
 
 
     public String sortElement(String event){
-        System.out.println("event " + event);
         String changed = "";
         HashMap<Integer, String> current = new HashMap<>();
         HashMap<Integer, String> prev = new HashMap<>();
@@ -174,8 +173,6 @@ public class Storage {
         for(String element : prevPrev.values()){
             returnValue.append(element);
         }
-
-        System.out.println(returnValue);
 
         return returnValue.toString();
     }
