@@ -17,10 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perceptron_app_bachelorarbeit.adapter.RecycleViewAdapterMain;
+import com.example.perceptron_app_bachelorarbeit.storagefiles.CSVSaver;
 import com.example.perceptron_app_bachelorarbeit.storagefiles.Event;
 import com.example.perceptron_app_bachelorarbeit.R;
 import com.example.perceptron_app_bachelorarbeit.storagefiles.Storage;
-import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<Integer, Event> eventDataFromCSV = new HashMap<>();
     private EditText searchValue;
 
+    private CSVSaver saveCSV = new CSVSaver();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewMainActivity = findViewById(R.id.recyclerViewDescription);
         searchValue = findViewById(R.id.editTextSearch);
         //Needed for the search function --> if element gets inserted it updates the recycler
+
+        if(saveCSV.checkFile()) {
+            try {
+                getDataFromCSVFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         searchValue.addTextChangedListener(new TextWatcher() {
             @Override
@@ -175,6 +185,9 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     storageForData.setCsvData(csvData);
+                    CSVSaver.writeCSV(getApplicationContext(), csvData);
+
+
                     storageForData.setEvents(eventDataFromCSV);
 
                     TextView startingPage = findViewById(R.id.mainPageInformation);
@@ -194,9 +207,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Recycler View for the MainActivity after CSV import and show the different Nodes
+     * gets the Data from the CSV File
+     * @throws IOException
      */
 
+    private void getDataFromCSVFile() throws IOException {
+
+        storageForData.setCsvData(saveCSV.getCSVData());
+
+        try {
+            InputStream csvIn = getResources().openRawResource(R.raw.mapping);
+            BufferedReader readerCsvIn = new BufferedReader(
+                    new InputStreamReader(csvIn, StandardCharsets.UTF_8)
+            );
+
+            String stringValueOfCSV;
+            Integer indexForHashMapEvent = 0;
+
+            while ((stringValueOfCSV = readerCsvIn.readLine()) != null) {
+                String[] fieldsOfCSVRow = stringValueOfCSV.split(";");
+
+                Event insert = new Event(fieldsOfCSVRow[0], fieldsOfCSVRow[1]);
+                eventDataFromCSV.put(indexForHashMapEvent, insert);
+                indexForHashMapEvent++;
+            }
+            csvIn.close();
+            readerCsvIn.close();
+        } catch (Exception streamError) {
+            Toast exceptionToast = Toast.makeText(getApplicationContext(),"Wrong CSV Format",Toast.LENGTH_SHORT);
+            exceptionToast.show();
+        }
+
+        storageForData.setEvents(eventDataFromCSV);
+
+        TextView startingPage = findViewById(R.id.mainPageInformation);
+        startingPage.setText("CSV Selected");
+
+        storageForData.setNames();
+        storageForData.setEventsAndValues();
+        Recycle();
+    }
+
+    /**
+     * Recycler View for the MainActivity after CSV import and show the different Nodes
+     */
     private void Recycle() {
         RecycleViewAdapterMain adapterForRecycle = new RecycleViewAdapterMain(this, storageForData.getNames());
         recyclerViewMainActivity.setAdapter(adapterForRecycle);
