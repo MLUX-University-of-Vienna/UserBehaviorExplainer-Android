@@ -1,3 +1,6 @@
+
+![alt text](https://github.com/MLUX-University-of-Vienna/UserBehaviorExplainer-Android/blob/main/AndroidUBE.jpg?raw=true)
+
 Dieses File beschreibt die grundsätzlichen Informationen für das Projekt und die Entwicklungsumgebung
 
 Um das Projekt zu verwenden einfach das Git Repository herunterladen und als Projekt in Android Studio hineinladen und das virtuelle Gerät erstellen.
